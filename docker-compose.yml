@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  react-seed:
-    container_name: react-seed
+  srna-ui:
+    container_name: srna-ui
     build:
       context: .
       dockerfile: Dockerfile

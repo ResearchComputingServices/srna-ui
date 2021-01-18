@@ -1,4 +1,4 @@
-# <ins> React Seed - UI</ins>
+# <ins> sRNA Computation - UI</ins>
 
 ## Available Scripts
 

@@ -83,7 +83,7 @@ function Main() {
                             }
                             variant='h5'
                         >
-                            React Seed
+                            sRNA Computation
                         </Typography>
                         <UserMenu
                             displayName='Settings'
