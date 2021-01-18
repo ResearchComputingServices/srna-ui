@@ -1,5 +1,5 @@
-import NotFound from '../../components/NotFound';
-import ComputationForm from '../../components/ComputationForm';
+import NotFound from '../components/NotFound';
+import ComputationForm from '../components/ComputationForm';
 
 export default [
     {

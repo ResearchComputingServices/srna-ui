@@ -19,13 +19,12 @@ import {
 } from '@material-ui/icons';
 import { Logo } from '..';
 import {
-    useProvider,
     useWindowSize,
-    useRoutes,
     useService,
     useActions,
     useStore,
 } from '../../hooks';
+import { routes } from '../../config';
 import UserMenu from './UserMenu';
 
 export const useStyles = makeStyles(theme => ({
@@ -54,9 +53,7 @@ export const useStyles = makeStyles(theme => ({
 function Main() {
     const classes = useStyles();
     const dimensions = useWindowSize();
-    const routes = useRoutes('main');
-    const routesAssemblerService = useProvider('route')();
-    const interceptorService = useService('interceptor');
+    const [interceptorService, routesAssemblerService] = useService('interceptor', 'routesAssembler');
     const theme = useStore('theme');
     const themeActions = useActions('theme');
     const isDark = theme.palette.type === 'dark';
@@ -64,7 +61,6 @@ function Main() {
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     useMount(async () => {
-        // Responsible for parsing all request from camel case to snake case and responses from snake case to camel case.
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
     });
