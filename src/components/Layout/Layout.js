@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { LinearProgress, CircularProgress as Spinner, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Error } from '..';
 
 export const useStyles = makeStyles(() => ({
     progressBar: {
@@ -54,7 +53,7 @@ function Layout({
                 style={style}
             >
                 {!error && (!unmountOnLoad ? children : !loading && children)}
-                {error && <Error error={error} />}
+                {error && 'An Error has Occured'}
             </Box>
         </Box>
     );

@@ -7,7 +7,6 @@ import { useStore, useService } from '../../hooks';
 
 function Root() {
     const theme = useStore('theme');
-    console.log(theme);
     const historyService = useService('history');
 
     return (

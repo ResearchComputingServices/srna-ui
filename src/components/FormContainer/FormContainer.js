@@ -26,12 +26,14 @@ function FormContainer({
                 justifyContent='center'
                 p={1}
             >
-                <Typography
-                    className={classes.title}
-                    variant='h4'
-                >
-                    {title}
-                </Typography>
+                {title && (
+                    <Typography
+                        className={classes.title}
+                        variant='h4'
+                    >
+                        {title}
+                    </Typography>
+                )}
                 {children}
             </Box>
         </FormPaper>
