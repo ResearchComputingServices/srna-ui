@@ -1,0 +1,169 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "airbnb"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "it": true,
+        "expect": true,
+        "jest": true,
+        "describe": true,
+        "beforeEach": true,
+        "beforeAll": true,
+        "afterEach": true,
+        "test": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-hooks"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "no-trailing-spaces": "error",
+        "semi": [
+            "error",
+            "always"
+        ],
+        "react/jsx-uses-vars": 2,
+        "react/jsx-uses-react": "error",
+        "rest-spread-spacing": [
+            "error",
+            "never"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "quotes": [
+            2,
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        "prefer-template": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "jsx-quotes": [
+            "error",
+            "prefer-single"
+        ],
+        "react/jsx-tag-spacing": [
+            "error",
+            {
+                "beforeSelfClosing": "always"
+            }
+        ],
+        "space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "never",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
+        "arrow-body-style": [
+            "error",
+            "as-needed"
+        ],
+        "react/jsx-boolean-value": "error",
+        "react/jsx-equals-spacing": "error",
+        "react/jsx-first-prop-new-line": "error",
+        "react/jsx-key": "error",
+        "react/jsx-max-props-per-line": [
+            "error",
+            {
+                "maximum": 1
+            }
+        ],
+        "react/jsx-no-literals": "off",
+        "react/jsx-no-target-blank": "error",
+        "react/jsx-pascal-case": "error",
+        "react/jsx-sort-props": "error",
+        "no-extra-semi": "error",
+        "object-curly-newline": [
+            "error",
+            {
+                "multiline": true
+            }
+        ],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "no-multiple-empty-lines": "error",
+        "padded-blocks": [
+            "error",
+            "never"
+        ],
+        "comma-style": [
+            "error",
+            "last"
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/jsx-indent": [
+            1,
+            4
+        ],
+        "react/jsx-indent-props": [
+            1,
+            4
+        ],
+        "no-param-reassign": 0,
+        "react/jsx-props-no-spreading": 0,
+        "max-len": [
+            1,
+            150
+        ],
+        "no-empty": 0,
+        "no-underscore-dangle": 0,
+        "no-plusplus": 0,
+        "react/no-array-index-key": 0,
+        "react/forbid-prop-types": 0,
+        "no-unused-expressions": 0,
+        "no-return-assign": 0,
+        "no-console": 0,
+        "consistent-return": 0,
+        "func-names": 0,
+        "no-nested-ternary": 0,
+        "no-shadow": 0,
+        "class-methods-use-this": 0,
+        "no-continue": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "import/prefer-default-export": 0,
+        "import/no-cycle": 0,
+        "react/jsx-handler-names": 0
+    }
+}

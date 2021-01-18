@@ -1,0 +1,47 @@
+import _ from 'lodash';
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import { useStyles } from '..';
+
+function formatDefaultValue(field) {
+    const defaultValue = _.get(field, 'defaultValue');
+    if (_.isNil(defaultValue)) {
+        return '';
+    }
+    return defaultValue;
+}
+
+function Field({ field, controls: { control, errors }, children }) {
+    const classes = useStyles();
+    return (
+        <Box className={classes.field}>
+            <Controller
+                {...field}
+                as={children}
+                control={control}
+                defaultValue={formatDefaultValue(field)}
+                rules={{ required: field.required }}
+            />
+            {field.field in errors && (_.eq(_.get(errors, [field.field, 'type']), 'custom') ? (
+                <Box className={classes.error}>
+                    {errors[field.field].message}
+                </Box>
+            ) : (
+                <Box className={classes.error}>
+                    The field &quot;
+                    {field.label}
+                    &quot; is Mandatory for save
+                </Box>
+            ))}
+        </Box>
+    );
+}
+Field.propTypes = {
+    field: PropTypes.object.isRequired,
+    controls: PropTypes.object.isRequired,
+    children: PropTypes.object.isRequired,
+};
+
+export default Field;
