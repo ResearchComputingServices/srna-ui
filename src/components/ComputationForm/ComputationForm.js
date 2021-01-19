@@ -52,18 +52,18 @@ function ComputationForm() {
     const classes = useStyles();
     const { register, handleSubmit, unregister, control, setValue, errors, watch } = useForm({
         defaultValues: {
-            reCompute: true,
+            followHits: true,
             length: 21,
         },
         validationSchema: schema,
     });
 
     React.useState(() => {
-        register({ name: 'sequenceFile' });
-        register({ name: 'tagFile' });
+        register({ name: 'fileSequence' });
+        register({ name: 'fileTags' });
         return () => {
-            unregister('sequenceFile');
-            unregister('tagFile');
+            unregister('fileSequence');
+            unregister('fileTags');
         };
     }, []);
 
@@ -71,7 +71,7 @@ function ComputationForm() {
         console.log(computation);
     };
 
-    const watchedReCompute = watch('reCompute');
+    const watchedFollowHits = watch('followHits');
 
     return (
         <Layout>
@@ -86,9 +86,9 @@ function ComputationForm() {
                     </Typography>
                     <FileUploader
                         className={classes.field}
-                        error={errors.sequenceFile}
+                        error={errors.fileSequence}
                         onSave={files => {
-                            setValue('sequenceFile', files[0]);
+                            setValue('fileSequence', files[0]);
                         }}
                     />
                     <Controller
@@ -154,9 +154,9 @@ function ComputationForm() {
                             className={classes.field}
                             control={control}
                             defaultValue={false}
-                            error={(!!errors.computeOnlyTags).toString()}
-                            label={t('computationForm.computeOnlyTags')}
-                            name='computeOnlyTags'
+                            error={(!!errors.onlyTags).toString()}
+                            label={t('computationForm.onlyTags')}
+                            name='onlyTags'
                             variant='outlined'
                         />
                         <FileUploader
@@ -165,9 +165,9 @@ function ComputationForm() {
                                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                             ]}
                             className={classes.field}
-                            error={errors.tagFile}
+                            error={errors.fileTags}
                             onSave={files => {
-                                setValue('tagFile', files[0]);
+                                setValue('fileTags', files[0]);
                             }}
                         />
                     </Box>
@@ -186,9 +186,9 @@ function ComputationForm() {
                             className={classes.field}
                             control={control}
                             defaultValue=''
-                            error={!!errors.cutOff}
-                            label={t('computationForm.cutOff')}
-                            name='cutOff'
+                            error={!!errors.eCutoff}
+                            label={t('computationForm.eCutoff')}
+                            name='eCutoff'
                             required
                             variant='outlined'
                         />
@@ -197,9 +197,9 @@ function ComputationForm() {
                             className={classes.field}
                             control={control}
                             defaultValue=''
-                            error={!!errors.identity}
-                            label={t('computationForm.identity')}
-                            name='identity'
+                            error={!!errors.identityPerc}
+                            label={t('computationForm.identityPerc')}
+                            name='identityPerc'
                             required
                             type='number'
                             variant='outlined'
@@ -210,9 +210,9 @@ function ComputationForm() {
                         className={classes.field}
                         control={control}
                         defaultValue
-                        error={(!!errors.reCompute).toString()}
-                        label={t('computationForm.reCompute')}
-                        name='reCompute'
+                        error={(!!errors.followHits).toString()}
+                        label={t('computationForm.followHits')}
+                        name='followHits'
                         variant='outlined'
                     />
                     <Box display='flex'>
@@ -221,10 +221,10 @@ function ComputationForm() {
                             className={classes.largeField}
                             control={control}
                             defaultValue=''
-                            error={!!errors.recomputingShift}
-                            label={t('computationForm.recomputingShift')}
-                            name='recomputingShift'
-                            required={watchedReCompute}
+                            error={!!errors.shitHits}
+                            label={t('computationForm.shitHits')}
+                            name='shitHits'
+                            required={watchedFollowHits}
                             type='number'
                             variant='outlined'
                         />

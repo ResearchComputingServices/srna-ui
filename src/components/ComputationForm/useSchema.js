@@ -19,7 +19,7 @@ export default function useSchema() {
     const fileRequired = t('computationForm.fileRequired');
 
     return yup.object().shape({
-        sequenceFile: yup
+        fileSequence: yup
             .object()
             .required(fileRequired),
         format: yup
@@ -38,22 +38,22 @@ export default function useSchema() {
             .formatEmptyNumber()
             .positive()
             .required(),
-        cutOff: yup
+        eCutoff: yup
             .number()
             .formatEmptyNumber()
             .positive()
             .required(),
-        identity: yup
+        identityPerc: yup
             .number()
             .formatEmptyNumber()
             .betweenOne()
             .required(),
-        recomputingShift: yup
+        shitHits: yup
             .number()
             .integer()
             .formatEmptyNumber()
             .noZero()
-            .when('reCompute', {
+            .when('followHits', {
                 is: true,
                 then: yup
                     .number()
@@ -62,9 +62,9 @@ export default function useSchema() {
                     .noZero()
                     .required(),
             }),
-        tagFile: yup
+        fileTags: yup
             .object()
-            .when('computeOnlyTags', {
+            .when('onlyTags', {
                 is: true,
                 then: yup
                     .object()
