@@ -12,6 +12,7 @@ import {
     Brightness2 as LightModeIcon,
     Flare as DarkModeIcon,
 } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 import { Logo } from '..';
 import {
     useWindowSize,
@@ -52,6 +53,7 @@ function Main() {
     const theme = useStore('theme');
     const themeActions = useActions('theme');
     const isDark = theme.palette.type === 'dark';
+    const [t] = useTranslation('common');
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
@@ -74,13 +76,13 @@ function Main() {
                             }
                             variant='h5'
                         >
-                            sRNA Computation
+                            {t('appBar.title')}
                         </Typography>
                         <UserMenu
-                            displayName='Settings'
+                            displayName={t('appBar.settings')}
                             dropdowns={[
                                 {
-                                    title: `${!isDark ? 'Dark' : 'Light'} Theme`,
+                                    title: `${!isDark ? t('appBar.dark') : t('appBar.light')} ${t('appBar.theme')}`,
                                     Icon: !isDark ? <LightModeIcon /> : <DarkModeIcon />,
                                     handler: switchThemeMode,
                                 },

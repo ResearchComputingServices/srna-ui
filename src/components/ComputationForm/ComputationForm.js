@@ -9,6 +9,7 @@ import {
 import { Autocomplete } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import {
     FileUploader,
@@ -28,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Form() {
+    const [t] = useTranslation('common');
     const classes = useStyles();
     const { handleSubmit, control } = useForm();
 
@@ -47,14 +49,14 @@ function Form() {
                             className={clsx(classes.title, classes.field)}
                             variant='h5'
                         >
-                            Query Sequence:
+                            {t('computationForm.querySequence')}
+                            :
                         </Typography>
                         <FileUploader
                             className={classes.field}
                             onSave={files => {
                                 console.log(files);
                             }}
-                            title='Choose File'
                         />
                         <Controller
                             as={<Autocomplete />}
@@ -69,7 +71,7 @@ function Form() {
                                 params => (
                                     <TextField
                                         {...params}
-                                        label='Format'
+                                        label={t('computationForm.format')}
                                         variant='outlined'
                                     />
                                 )
@@ -82,14 +84,15 @@ function Form() {
                             className={clsx(classes.title, classes.field)}
                             variant='h5'
                         >
-                            General Settings:
+                            {t('computationForm.generalSettings')}
+                            :
                         </Typography>
                         <Box display='flex'>
                             <Controller
                                 as={<TextField />}
                                 className={classes.field}
                                 control={control}
-                                label='Shift Position'
+                                label={t('computationForm.shift')}
                                 name='shift'
                                 rules={{ required: true }}
                                 variant='outlined'
@@ -98,7 +101,7 @@ function Form() {
                                 as={<TextField />}
                                 className={classes.field}
                                 control={control}
-                                label='sRNA Length'
+                                label={t('computationForm.length')}
                                 name='length'
                                 rules={{ required: true }}
                                 variant='outlined'
@@ -109,7 +112,7 @@ function Form() {
                                 as={<FormControlLabel control={<Checkbox color='primary' />} />}
                                 className={classes.field}
                                 control={control}
-                                label='Compute sRNAs only for these tags'
+                                label={t('computationForm.computeOnlyTags')}
                                 name='computeOnlyTags'
                                 rules={{ required: true }}
                                 variant='outlined'
@@ -119,7 +122,6 @@ function Form() {
                                 onSave={files => {
                                     console.log(files);
                                 }}
-                                title='Choose File'
                             />
                         </Box>
                     </Box>
@@ -128,14 +130,15 @@ function Form() {
                             className={clsx(classes.title, classes.field)}
                             variant='h5'
                         >
-                            Blast Settings:
+                            {t('computationForm.blastSettings')}
+                            :
                         </Typography>
                         <Box display='flex'>
                             <Controller
                                 as={<TextField />}
                                 className={classes.field}
                                 control={control}
-                                label='Expected cut off'
+                                label={t('computationForm.cutOff')}
                                 name='cutOff'
                                 rules={{ required: true }}
                                 variant='outlined'
@@ -144,7 +147,7 @@ function Form() {
                                 as={<TextField />}
                                 className={classes.field}
                                 control={control}
-                                label='Identify (%)'
+                                label={t('computationForm.identity')}
                                 name='identify'
                                 rules={{ required: true }}
                                 variant='outlined'
@@ -154,8 +157,8 @@ function Form() {
                             as={<FormControlLabel control={<Checkbox color='primary' />} />}
                             className={classes.field}
                             control={control}
-                            label='Compute sRNAs only for these tags'
-                            name='computeOnlyTags'
+                            label={t('computationForm.reCompute')}
+                            name='reCompute'
                             rules={{ required: true }}
                             variant='outlined'
                         />
@@ -164,8 +167,8 @@ function Form() {
                                 as={<TextField />}
                                 className={classes.largeField}
                                 control={control}
-                                label='Shift Position (for recomputing)'
-                                name='shiftPositionRecomputing'
+                                label={t('computationForm.recomputingShift')}
+                                name='recomputingShift'
                                 rules={{ required: true }}
                                 variant='outlined'
                             />
@@ -180,7 +183,7 @@ function Form() {
                             color='primary'
                             type='submit'
                         >
-                            Run
+                            {t('computationForm.run')}
                         </Button>
                     </Box>
                 </form>

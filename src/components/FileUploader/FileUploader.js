@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, makeStyles } from '@material-ui/core';
 import { DropzoneDialog } from 'material-ui-dropzone';
+import { useTranslation } from 'react-i18next';
 import { Button } from '..';
 
 const useStyles = makeStyles(theme => ({ button: { marginRight: theme.spacing(2) } }));
@@ -9,11 +10,12 @@ const useStyles = makeStyles(theme => ({ button: { marginRight: theme.spacing(2)
 const FileUploader = ({
     className,
     style,
-    title, onSave,
+    onSave,
 }) => {
     const classes = useStyles();
-    const [filename, setFilename] = React.useState(false);
+    const [filename, setFilename] = React.useState(null);
     const [open, setOpen] = React.useState(false);
+    const [t] = useTranslation('common');
 
     const handleClose = () => {
         setOpen(false);
@@ -29,7 +31,7 @@ const FileUploader = ({
         setOpen(true);
     };
 
-    const formatFilename = (str, limit) => (str.length > limit ? `${str.slice(0, limit)}...` : str);
+    const formatFilename = (str, limit) => (filename ? (str.length > limit ? `${str.slice(0, limit)}...` : str) : null);
 
     return (
         <Box
@@ -44,7 +46,7 @@ const FileUploader = ({
                 color='primary'
                 onClick={handleOpen}
             >
-                {title}
+                {filename == null ? t('fileUploader.chooseFile') : t('fileUploader.changeFile')}
             </Button>
             <DropzoneDialog
                 filesLimit={1}
@@ -61,14 +63,12 @@ const FileUploader = ({
 FileUploader.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    title: PropTypes.string,
     onSave: PropTypes.func.isRequired,
 };
 
 FileUploader.defaultProps = {
     className: '',
     style: {},
-    title: 'Add File',
 };
 
 export default FileUploader;
