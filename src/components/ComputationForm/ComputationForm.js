@@ -24,18 +24,22 @@ export const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
         justifyContent: 'center',
-        width: 700,
-        '@media (max-width:780px)': { width: 560 },
+        width: 750,
+        '@media (max-width:780px)': { width: 650 },
         '@media (max-width:610px)': { width: 550 },
         '@media (max-width:554px)': { width: 500 },
         '@media (max-width:504px)': { width: 450 },
     },
     title: { paddingTop: theme.spacing(1) },
     field: { margin: theme.spacing(2) },
-    button: { width: 100, marginBottom: theme.spacing(1) },
+    button: { width: 100 },
     largeField: {
         margin: theme.spacing(2),
         width: 400,
+    },
+    error: {
+        marginLeft: theme.spacing(2),
+        color: theme.palette.error.main,
     },
 }));
 
@@ -57,29 +61,30 @@ export const computationSchema = yup.object().shape({
         .required('file is required'),
     format: yup
         .string()
-        .required(),
+        .nullable()
+        .required('field is required'),
     shift: yup
         .number()
         .integer()
         .formatEmptyNumber()
         .noZero()
-        .required(),
+        .required('field is required'),
     length: yup
         .number()
         .integer()
         .formatEmptyNumber()
         .positive()
-        .required(),
+        .required('field is required'),
     cutOff: yup
         .number()
         .formatEmptyNumber()
         .positive()
-        .required(),
+        .required('field is required'),
     identity: yup
         .number()
         .formatEmptyNumber()
         .betweenOne()
-        .required(),
+        .required('field is required'),
     recomputingShift: yup
         .number()
         .integer()
@@ -92,7 +97,7 @@ export const computationSchema = yup.object().shape({
                 .integer()
                 .formatEmptyNumber()
                 .noZero()
-                .required('value is required'),
+                .required('field is required'),
         }),
     tagFile: yup
         .object()
@@ -107,7 +112,13 @@ export const computationSchema = yup.object().shape({
 function ComputationForm() {
     const [t] = useTranslation('common');
     const classes = useStyles();
-    const { register, handleSubmit, unregister, control, setValue, errors } = useForm({ validationSchema: computationSchema });
+    const { register, handleSubmit, unregister, control, setValue, errors, watch } = useForm({
+        defaultValues: {
+            reCompute: true,
+            length: 21,
+        },
+        validationSchema: computationSchema,
+    });
 
     React.useState(() => {
         register({ name: 'sequenceFile' });
@@ -122,7 +133,7 @@ function ComputationForm() {
         console.log(computation);
     };
 
-    console.log(errors);
+    const watchedReCompute = watch('reCompute');
 
     return (
         <Layout>
@@ -191,6 +202,7 @@ function ComputationForm() {
                                     {...params}
                                     error={!!errors.format}
                                     label={t('computationForm.format')}
+                                    required
                                     variant='outlined'
                                 />
                             )
@@ -214,6 +226,7 @@ function ComputationForm() {
                             error={!!errors.shift}
                             label={t('computationForm.shift')}
                             name='shift'
+                            required
                             type='number'
                             variant='outlined'
                         />
@@ -225,6 +238,7 @@ function ComputationForm() {
                             error={!!errors.length}
                             label={t('computationForm.length')}
                             name='length'
+                            required
                             type='number'
                             variant='outlined'
                         />
@@ -241,6 +255,10 @@ function ComputationForm() {
                             variant='outlined'
                         />
                         <FileUploader
+                            acceptedFiles={[
+                                'application/vnd.ms-excel',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            ]}
                             className={classes.field}
                             error={errors.tagFile}
                             onSave={files => {
@@ -266,6 +284,7 @@ function ComputationForm() {
                             error={!!errors.cutOff}
                             label={t('computationForm.cutOff')}
                             name='cutOff'
+                            required
                             variant='outlined'
                         />
                         <Controller
@@ -276,6 +295,7 @@ function ComputationForm() {
                             error={!!errors.identity}
                             label={t('computationForm.identity')}
                             name='identity'
+                            required
                             type='number'
                             variant='outlined'
                         />
@@ -299,6 +319,7 @@ function ComputationForm() {
                             error={!!errors.recomputingShift}
                             label={t('computationForm.recomputingShift')}
                             name='recomputingShift'
+                            required={watchedReCompute}
                             type='number'
                             variant='outlined'
                         />

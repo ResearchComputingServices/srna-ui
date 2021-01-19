@@ -15,6 +15,7 @@ const FileUploader = ({
     style,
     onSave,
     error,
+    acceptedFiles,
 }) => {
     const classes = useStyles();
     const [filename, setFilename] = React.useState(null);
@@ -53,6 +54,7 @@ const FileUploader = ({
                 {filename == null ? t('fileUploader.chooseFile') : t('fileUploader.changeFile')}
             </Button>
             <DropzoneDialog
+                acceptedFiles={acceptedFiles}
                 filesLimit={1}
                 onClose={handleClose}
                 onSave={handleSave}
@@ -73,12 +75,14 @@ FileUploader.propTypes = {
         PropTypes.object,
         PropTypes.bool,
     ]),
+    acceptedFiles: PropTypes.array,
 };
 
 FileUploader.defaultProps = {
     className: '',
     style: {},
     error: undefined,
+    acceptedFiles: undefined,
 };
 
 export default FileUploader;
