@@ -1,9 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import {
-    ToastsContainer,
-    ToastsStore,
-} from 'react-toasts';
 import { Switch } from 'react-router-dom';
 import {
     AppBar,
@@ -12,7 +8,6 @@ import {
     Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useMount } from 'react-use';
 import {
     Brightness2 as LightModeIcon,
     Flare as DarkModeIcon,
@@ -60,7 +55,7 @@ function Main() {
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
-    useMount(async () => {
+    React.useEffect(() => {
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
     });
@@ -96,10 +91,6 @@ function Main() {
             </AppBar>
             <main className={classes.content}>
                 <Switch>{routesAssemblerService.assemble(routes)}</Switch>
-                <ToastsContainer
-                    position='bottom_left'
-                    store={ToastsStore}
-                />
             </main>
         </>
     );

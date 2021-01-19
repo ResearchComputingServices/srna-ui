@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(() => ({
@@ -29,21 +28,22 @@ function UserMenu({ displayName, dropdowns }) {
     const handleOpen = event => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
     const classes = useStyles();
-    dropdowns = _.compact(dropdowns);
+    dropdowns = dropdowns.filter(dropdown => !!dropdown);
+    const hasDropdowns = dropdowns && dropdowns.length !== 0;
 
     return (
         <Box>
             <Box
                 className={classes.root}
                 onClick={handleOpen}
-                onKeyDown={() => _.noop()}
+                onKeyDown={() => {}}
                 role='menuitem'
                 tabIndex={0}
             >
                 <Typography variant='h6'>{displayName}</Typography>
-                {!_.isEmpty(dropdowns) && <ArrowDropDownIcon />}
+                {hasDropdowns && <ArrowDropDownIcon />}
             </Box>
-            {!_.isEmpty(dropdowns)
+            {hasDropdowns
                 && (
                     <Menu
                         anchorEl={anchorEl}
@@ -61,12 +61,12 @@ function UserMenu({ displayName, dropdowns }) {
                             horizontal: 'center',
                         }}
                     >
-                        {_.map(dropdowns, (dropdown, index) => (
+                        {dropdowns.map((dropdown, index) => (
                             <MenuItem
                                 key={index}
                                 disabled={dropdown.disabled}
                                 onClick={(...args) => {
-                                    _.isFunction(dropdown.handler) && dropdown.handler(...args);
+                                    typeof dropdown.handler === 'function' && dropdown.handler(...args);
                                     handleClose();
                                 }}
                             >

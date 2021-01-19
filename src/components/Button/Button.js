@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MuiButton from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import _ from 'lodash';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,6 +20,11 @@ function Button(props) {
     const [loading, setLoading] = useState(false);
     const { className, children, onClick, disabled, inline } = props;
     const isMounted = useMountedState();
+    const propsToSpread = { ...props };
+    delete propsToSpread.className;
+    delete propsToSpread.disabled;
+    delete propsToSpread.onClick;
+    delete propsToSpread.inline;
     return (
         <Box
             className={clsx({ [classes.inline]: inline })}
@@ -30,7 +34,7 @@ function Button(props) {
                 className={className}
                 disabled={loading || disabled}
                 onClick={
-                    _.isFunction(onClick)
+                    typeof onClick === 'function'
                         ? async () => {
                             setLoading(true);
                             try {
@@ -44,7 +48,7 @@ function Button(props) {
                         : undefined
                 }
                 variant={!inline ? 'contained' : undefined}
-                {..._.omit(props, ['className', 'disabled', 'onClick', 'inline'])}
+                {...propsToSpread}
             >
                 {!loading && !inline && children}
                 {inline && children}
