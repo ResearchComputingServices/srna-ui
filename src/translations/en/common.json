@@ -20,7 +20,9 @@
         "cutOff": "Expected cut off",
         "identity": "Identity (%)",
         "reCompute": "Re-compute sRNAS with hits in the genome",
-        "recomputingShift": "Shift Position (for recomputing)"
+        "recomputingShift": "Shift Position (for recomputing)",
+        "fileRequired": "File is required",
+        "fieldRequired": "Field is required"
     },
     "fileUploader": {
         "chooseFile": "Choose File",

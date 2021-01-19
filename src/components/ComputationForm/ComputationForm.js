@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import React from 'react';
 import {
     Box,
@@ -12,19 +11,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import * as yup from 'yup';
 import {
     FileUploader,
     Layout,
     FormContainer,
     Button,
 } from '..';
+import { useSchema } from '.';
+import formatOptions from './formatOptions.json';
 
 export const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        justifyContent: 'center',
         width: 750,
+        paddingLeft: theme.spacing(5),
         '@media (max-width:780px)': { width: 650 },
         '@media (max-width:610px)': { width: 550 },
         '@media (max-width:554px)': { width: 500 },
@@ -32,7 +32,10 @@ export const useStyles = makeStyles(theme => ({
     },
     title: { paddingTop: theme.spacing(1) },
     field: { margin: theme.spacing(2) },
-    button: { width: 100 },
+    button: {
+        width: 100,
+        marginBottom: theme.spacing(2),
+    },
     largeField: {
         margin: theme.spacing(2),
         width: 400,
@@ -43,73 +46,8 @@ export const useStyles = makeStyles(theme => ({
     },
 }));
 
-yup.addMethod(yup.number, 'formatEmptyNumber', function() {
-    return this.transform(value => (isNaN(value) ? undefined : value));
-});
-
-yup.addMethod(yup.number, 'noZero', function() {
-    return this.test('no-zero', 'value cannot be zero', value => value === undefined || value !== 0);
-});
-
-yup.addMethod(yup.number, 'betweenOne', function() {
-    return this.test('between-one', 'value must be between 0 and 1', value => value === undefined || (value >= 0 && value <= 1));
-});
-
-export const computationSchema = yup.object().shape({
-    sequenceFile: yup
-        .object()
-        .required('file is required'),
-    format: yup
-        .string()
-        .nullable()
-        .required('field is required'),
-    shift: yup
-        .number()
-        .integer()
-        .formatEmptyNumber()
-        .noZero()
-        .required('field is required'),
-    length: yup
-        .number()
-        .integer()
-        .formatEmptyNumber()
-        .positive()
-        .required('field is required'),
-    cutOff: yup
-        .number()
-        .formatEmptyNumber()
-        .positive()
-        .required('field is required'),
-    identity: yup
-        .number()
-        .formatEmptyNumber()
-        .betweenOne()
-        .required('field is required'),
-    recomputingShift: yup
-        .number()
-        .integer()
-        .formatEmptyNumber()
-        .noZero()
-        .when('reCompute', {
-            is: true,
-            then: yup
-                .number()
-                .integer()
-                .formatEmptyNumber()
-                .noZero()
-                .required('field is required'),
-        }),
-    tagFile: yup
-        .object()
-        .when('computeOnlyTags', {
-            is: true,
-            then: yup
-                .object()
-                .required('file is required'),
-        }),
-});
-
 function ComputationForm() {
+    const schema = useSchema();
     const [t] = useTranslation('common');
     const classes = useStyles();
     const { register, handleSubmit, unregister, control, setValue, errors, watch } = useForm({
@@ -117,7 +55,7 @@ function ComputationForm() {
             reCompute: true,
             length: 21,
         },
-        validationSchema: computationSchema,
+        validationSchema: schema,
     });
 
     React.useState(() => {
@@ -162,40 +100,7 @@ function ComputationForm() {
                         getOptionSelected={(option, value) => option === value}
                         name='format'
                         onChange={([, option]) => option}
-                        options={[
-                            'abi',
-                            'abi-trim',
-                            'ace',
-                            'cif-atom',
-                            'cif-seqres',
-                            'clustal',
-                            'embl',
-                            'fasta',
-                            'fasta-2line',
-                            'fastq-sanger',
-                            'fastq-solexa',
-                            'fastq-illumina',
-                            'gck',
-                            'genbank',
-                            'ig',
-                            'imgt',
-                            'nexus',
-                            'pdb-seqres',
-                            'pdb-atom',
-                            'phd',
-                            'phylip',
-                            'pir',
-                            'seqxml',
-                            'sff',
-                            'sff-trim',
-                            'snapgene',
-                            'stockholm',
-                            'swiss',
-                            'tab',
-                            'qual',
-                            'uniprot-xml',
-                            'xdna',
-                        ]}
+                        options={formatOptions}
                         renderInput={
                             params => (
                                 <TextField
@@ -327,7 +232,6 @@ function ComputationForm() {
                 </Box>
                 <Box
                     className={classes.field}
-                    mb={2}
                 >
                     <Button
                         className={classes.button}

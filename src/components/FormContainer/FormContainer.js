@@ -1,10 +1,11 @@
 import React from 'react';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormPaper } from '..';
 
 export const useStyles = makeStyles(theme => ({
+    root: { marginTop: theme.spacing(2) },
     title: {
         marginBottom: theme.spacing(3),
         paddingTop: theme.spacing(2),
@@ -20,7 +21,10 @@ function FormContainer({
     const classes = useStyles();
 
     return (
-        <FormPaper className={className}>
+        <Paper
+            className={clsx(className, classes.root)}
+            elevation={3}
+        >
             <Box
                 display='flex'
                 flexDirection='column'
@@ -37,7 +41,7 @@ function FormContainer({
                 )}
                 {children}
             </Box>
-        </FormPaper>
+        </Paper>
     );
 }
 

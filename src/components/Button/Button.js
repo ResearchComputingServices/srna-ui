@@ -5,7 +5,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { Ripple } from '..';
 import { useMountedState } from '../../hooks';
 
 export const useStyles = makeStyles(() => ({
@@ -60,9 +59,7 @@ function Button(props) {
                 )}
             </MuiButton>
             {loading && inline && (
-                <Ripple
-                    size={35}
-                />
+                <CircularProgress size={35} />
             )}
         </Box>
     );
