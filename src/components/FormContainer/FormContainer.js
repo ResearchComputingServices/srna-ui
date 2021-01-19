@@ -15,11 +15,12 @@ export const useStyles = makeStyles(theme => ({
 function FormContainer({
     title,
     children,
+    className,
 }) {
     const classes = useStyles();
 
     return (
-        <FormPaper>
+        <FormPaper className={className}>
             <Box
                 display='flex'
                 flexDirection='column'
@@ -43,8 +44,12 @@ function FormContainer({
 FormContainer.propTypes = {
     title: PropTypes.string,
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
 };
 
-FormContainer.defaultProps = { title: undefined };
+FormContainer.defaultProps = {
+    className: '',
+    title: undefined,
+};
 
 export default FormContainer;

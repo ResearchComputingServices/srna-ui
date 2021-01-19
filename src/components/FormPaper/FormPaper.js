@@ -18,7 +18,7 @@ const FormPaper = forwardRef((props, ref) => {
         <Paper
             ref={ref}
             className={clsx(classes.root, classes.marginTop, props.className)}
-            elevation={2}
+            elevation={3}
             style={props.style}
         >
             {props.children}

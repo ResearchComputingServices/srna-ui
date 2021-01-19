@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Button } from '..';
 
-export const useStyles = makeStyles(theme => ({ button: { marginRight: theme.spacing(2) } }));
+export const useStyles = makeStyles(theme => ({
+    error: { color: theme.palette.error.main },
+    button: { marginRight: theme.spacing(2) },
+}));
 
 const FileUploader = ({
     className,
     style,
     onSave,
+    error,
 }) => {
     const classes = useStyles();
     const [filename, setFilename] = React.useState(null);
@@ -55,7 +59,8 @@ const FileUploader = ({
                 open={open}
                 showPreviews
             />
-            {formatFilename(filename, 80)}
+            {!error && formatFilename(filename, 80)}
+            {error && <Typography className={classes.error}>{error.message}</Typography>}
         </Box>
     );
 };
@@ -64,11 +69,16 @@ FileUploader.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     onSave: PropTypes.func.isRequired,
+    error: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.bool,
+    ]),
 };
 
 FileUploader.defaultProps = {
     className: '',
     style: {},
+    error: undefined,
 };
 
 export default FileUploader;

@@ -21,9 +21,18 @@ import {
 } from '..';
 
 export const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        width: 700,
+        '@media (max-width:780px)': { width: 560 },
+        '@media (max-width:610px)': { width: 550 },
+        '@media (max-width:554px)': { width: 500 },
+        '@media (max-width:504px)': { width: 450 },
+    },
     title: { paddingTop: theme.spacing(1) },
     field: { margin: theme.spacing(2) },
-    button: { width: 100 },
+    button: { width: 100, marginBottom: theme.spacing(1) },
     largeField: {
         margin: theme.spacing(2),
         width: 400,
@@ -43,24 +52,34 @@ yup.addMethod(yup.number, 'betweenOne', function() {
 });
 
 export const computationSchema = yup.object().shape({
+    sequenceFile: yup
+        .object()
+        .required('file is required'),
+    format: yup
+        .string()
+        .required(),
     shift: yup
         .number()
         .integer()
         .formatEmptyNumber()
-        .noZero(),
+        .noZero()
+        .required(),
     length: yup
         .number()
         .integer()
         .formatEmptyNumber()
-        .positive(),
+        .positive()
+        .required(),
     cutOff: yup
         .number()
         .formatEmptyNumber()
-        .positive(),
+        .positive()
+        .required(),
     identity: yup
         .number()
         .formatEmptyNumber()
-        .betweenOne(),
+        .betweenOne()
+        .required(),
     recomputingShift: yup
         .number()
         .integer()
@@ -73,24 +92,41 @@ export const computationSchema = yup.object().shape({
                 .integer()
                 .formatEmptyNumber()
                 .noZero()
-                .required('value is required for computation'),
+                .required('value is required'),
+        }),
+    tagFile: yup
+        .object()
+        .when('computeOnlyTags', {
+            is: true,
+            then: yup
+                .object()
+                .required('file is required'),
         }),
 });
 
 function ComputationForm() {
     const [t] = useTranslation('common');
     const classes = useStyles();
-    const { handleSubmit, control, errors } = useForm({ validationSchema: computationSchema });
+    const { register, handleSubmit, unregister, control, setValue, errors } = useForm({ validationSchema: computationSchema });
 
-    const onSubmit = values => {
-        console.log(values);
+    React.useState(() => {
+        register({ name: 'sequenceFile' });
+        register({ name: 'tagFile' });
+        return () => {
+            unregister('sequenceFile');
+            unregister('tagFile');
+        };
+    }, []);
+
+    const onSubmit = computation => {
+        console.log(computation);
     };
 
     console.log(errors);
 
     return (
         <Layout>
-            <FormContainer>
+            <FormContainer className={classes.root}>
                 <Box mb={2}>
                     <Typography
                         className={clsx(classes.title, classes.field)}
@@ -101,8 +137,9 @@ function ComputationForm() {
                     </Typography>
                     <FileUploader
                         className={classes.field}
+                        error={errors.sequenceFile}
                         onSave={files => {
-                            console.log(files);
+                            setValue('sequenceFile', files[0]);
                         }}
                     />
                     <Controller
@@ -110,15 +147,49 @@ function ComputationForm() {
                         className={clsx(classes.field, classes.largeField)}
                         control={control}
                         defaultValue={null}
-                        error={(!!errors.format).toString()}
                         getOptionLabel={option => option}
                         getOptionSelected={(option, value) => option === value}
                         name='format'
-                        options={[]}
+                        onChange={([, option]) => option}
+                        options={[
+                            'abi',
+                            'abi-trim',
+                            'ace',
+                            'cif-atom',
+                            'cif-seqres',
+                            'clustal',
+                            'embl',
+                            'fasta',
+                            'fasta-2line',
+                            'fastq-sanger',
+                            'fastq-solexa',
+                            'fastq-illumina',
+                            'gck',
+                            'genbank',
+                            'ig',
+                            'imgt',
+                            'nexus',
+                            'pdb-seqres',
+                            'pdb-atom',
+                            'phd',
+                            'phylip',
+                            'pir',
+                            'seqxml',
+                            'sff',
+                            'sff-trim',
+                            'snapgene',
+                            'stockholm',
+                            'swiss',
+                            'tab',
+                            'qual',
+                            'uniprot-xml',
+                            'xdna',
+                        ]}
                         renderInput={
                             params => (
                                 <TextField
                                     {...params}
+                                    error={!!errors.format}
                                     label={t('computationForm.format')}
                                     variant='outlined'
                                 />
@@ -171,8 +242,9 @@ function ComputationForm() {
                         />
                         <FileUploader
                             className={classes.field}
+                            error={errors.tagFile}
                             onSave={files => {
-                                console.log(files);
+                                setValue('tagFile', files[0]);
                             }}
                         />
                     </Box>
@@ -227,6 +299,7 @@ function ComputationForm() {
                             error={!!errors.recomputingShift}
                             label={t('computationForm.recomputingShift')}
                             name='recomputingShift'
+                            type='number'
                             variant='outlined'
                         />
                     </Box>
