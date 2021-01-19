@@ -16,6 +16,7 @@
         "clsx": "^1.1.1",
         "file-saver": "^2.0.2",
         "history": "^4.10.1",
+        "i18next": "^19.8.4",
         "material-ui-dropzone": "^3.2.1",
         "md5": "^2.2.1",
         "moment": "^2.26.0",
@@ -23,6 +24,7 @@
         "react": "^16.14.0",
         "react-dom": "^16.14.0",
         "react-hook-form": "^5.7.2",
+        "react-i18next": "^11.8.5",
         "react-input-mask": "^2.0.4",
         "react-redux": "^7.2.0",
         "react-router-dom": "^5.2.0",
@@ -30,8 +32,7 @@
         "redux": "^4.0.5",
         "redux-logger": "^3.0.6",
         "uuid": "^8.1.0",
-        "i18next": "^19.8.4",
-        "react-i18next": "^11.8.5"
+        "yup": "^0.32.8"
     },
     "scripts": {
         "start": "react-scripts start",

@@ -5,7 +5,7 @@ import { DropzoneDialog } from 'material-ui-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Button } from '..';
 
-const useStyles = makeStyles(theme => ({ button: { marginRight: theme.spacing(2) } }));
+export const useStyles = makeStyles(theme => ({ button: { marginRight: theme.spacing(2) } }));
 
 const FileUploader = ({
     className,
