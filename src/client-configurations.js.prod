@@ -1,0 +1,34 @@
+class ClientConfig {
+  getServerURL() {
+    return 'https://permafrost.carleton.ca'
+  }
+  getAuthenticationURL () {
+    return this.getServerURL() + ':7019'
+  }
+  getApi() {
+    return this.getServerURL() + ':7019/srna_api'
+  }
+
+  // Keycloak stuff
+  getRealm() {
+    return 'srna'
+  }
+  getClient() {
+    return 'srna'
+  }
+  getServer() {
+    return 'permafrost.carleton.ca'
+  }
+  getPort() {
+    return '7010'
+  }
+  getSecret() {
+    return 'e78ef890-9e88-4174-8899-4f5294e38458'
+  }
+  isHTTPS() {
+    return true
+  }
+}
+
+export default ClientConfig
+
