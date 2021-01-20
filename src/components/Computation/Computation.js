@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '../../hooks';
-import { ComputationForm, ComputationPending } from '..';
+import { ComputationForm, ComputationPending, ComputationResult } from '..';
 
 function Computation() {
     const computation = useStore('computation');
@@ -11,6 +11,10 @@ function Computation() {
 
     if (computation.stage === 2) {
         return <ComputationPending />;
+    }
+
+    if (computation.stage === 3) {
+        return <ComputationResult />;
     }
 
     return <ComputationForm />;

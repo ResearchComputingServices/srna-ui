@@ -25,11 +25,16 @@
         "fileRequired": "File is required",
         "fieldRequired": "Field is required"
     },
+    "computationPending": {
+        "title1": "Please wait. Computation in progress.",
+        "title2": "Please wait. Computation is still in progress.",
+        "subtitle": "This usually takes a couple of minutes.",
+        "refresh": "Check if it's done"
+    },
     "computationResult": {
-        "pending": "Please wait, computation in progress",
-        "stillPending": "Please wait, computation is still in progress",
-        "refresh": "Check if it's done",
-        "refreshAgain": "Check again to see if it's done"
+        "complete": "Computation complete!",
+        "downloadText": "The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.",
+        "download": "Download Result"
     },
     "fileUploader": {
         "chooseFile": "Choose File",

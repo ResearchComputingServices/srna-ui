@@ -9,4 +9,5 @@ export { default as FormContainer } from './FormContainer';
 export { default as Computation } from './Computation';
 export { default as ComputationForm } from './ComputationForm';
 export { default as ComputationPending } from './ComputationPending';
+export { default as ComputationResult } from './ComputationResult';
 export { default as Ripple } from './Ripple';

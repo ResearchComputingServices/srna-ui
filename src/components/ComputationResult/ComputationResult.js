@@ -1,9 +1,9 @@
 import React from 'react';
 import { Paper, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CheckCircle as CheckCircleIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Layout, Ripple, Button } from '..';
-import { useStore, useActions } from '../../hooks';
+import { Layout, Button } from '..';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -14,30 +14,31 @@ const useStyles = makeStyles(theme => ({
         width: 600,
         marginTop: theme.spacing(8),
         padding: theme.spacing(5),
+        textAlign: 'center',
         '@media (max-width:780px)': { width: 450 },
         '@media (max-width:610px)': { width: 350 },
         '@media (max-width:554px)': { width: 300 },
         '@media (max-width:504px)': { width: 350 },
     },
     subtitle: { marginTop: theme.spacing(2) },
+    checkCircleIcon: {
+        fill: theme.palette.success.main,
+        width: 50,
+        height: 50,
+        marginBottom: theme.spacing(2),
+    },
     button: {
         marginTop: theme.spacing(3),
         textTransform: 'none',
     },
 }));
 
-function ComputationPending() {
+function ComputationResult() {
     const classes = useStyles();
     const [t] = useTranslation('common');
-    const computation = useStore('computation');
-    const computationActions = useActions('computation');
 
-    const refresh = () => new Promise(resolve => {
+    const download = () => new Promise(resolve => {
         setTimeout(() => {
-            computationActions.incrementRefreshForResultsCounter();
-            if (computation.refreshForResultsCounter > 1) {
-                computationActions.changeStage(3);
-            }
             resolve();
         }, 1000);
     });
@@ -45,39 +46,32 @@ function ComputationPending() {
     return (
         <Layout>
             <Paper className={classes.root}>
-                <Ripple
-                    color='warning'
-                    height={45}
-                    width={45}
-                />
+                <CheckCircleIcon className={classes.checkCircleIcon} />
                 <Box
                     alignItems='center'
                     display='flex'
                     flexDirection='row'
                 >
                     <Typography variant='h6'>
-                        {!computation.refreshForResultsCounter
-                            ? t('computationPending.title1')
-                            : t('computationPending.title2')}
-
+                        {t('computationResult.complete')}
                     </Typography>
                 </Box>
                 <Typography
                     className={classes.subtitle}
                     variant='subtitle2'
                 >
-                    {t('computationPending.subtitle')}
+                    {t('computationResult.downloadText')}
                 </Typography>
                 <Button
                     className={classes.button}
-                    onClick={refresh}
+                    onClick={download}
                     variant='outlined'
                 >
-                    {t('computationPending.refresh')}
+                    {t('computationResult.download')}
                 </Button>
             </Paper>
         </Layout>
     );
 }
 
-export default ComputationPending;
+export default ComputationResult;
