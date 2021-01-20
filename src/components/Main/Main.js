@@ -13,6 +13,7 @@ import {
     Flare as DarkModeIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 import { Logo } from '..';
 import {
     useWindowSize,
@@ -50,6 +51,8 @@ function Main() {
     const classes = useStyles();
     const dimensions = useWindowSize();
     const [interceptorService, routesAssemblerService] = useService('interceptor', 'routesAssembler');
+    const userSession = useStore('userSession');
+    const userSessionActions = useActions('userSession');
     const theme = useStore('theme');
     const themeActions = useActions('theme');
     const isDark = theme.palette.type === 'dark';
@@ -58,9 +61,19 @@ function Main() {
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     React.useEffect(() => {
+        if (sessionStorage.sessionId) {
+            userSessionActions.login(sessionStorage.sessionId);
+        } else {
+            const sessionId = uuidv4();
+            userSessionActions.login(sessionId);
+            sessionStorage.sessionId = sessionId;
+        }
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    console.log(userSession.sessionId);
 
     return (
         <>
