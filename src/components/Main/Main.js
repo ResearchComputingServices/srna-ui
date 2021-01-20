@@ -58,25 +58,26 @@ function Main() {
     const themeActions = useActions('theme');
     const isDark = theme.palette.type === 'dark';
     const [t] = useTranslation('common');
+    const storage = useService('storage');
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     const createSessionId = React.useCallback(() => {
-        if (sessionStorage.sessionId) {
-            userSessionActions.login(sessionStorage.sessionId);
+        if (storage.get().sessionId) {
+            userSessionActions.login(storage.get().sessionId);
         } else {
             const sessionId = uuidv4();
             userSessionActions.login(sessionId);
-            sessionStorage.sessionId = sessionId;
+            storage.get().sessionId = sessionId;
         }
         axios.interceptors.request.use(config => {
-            config.headers['X-Request-ID'] = sessionStorage.sessionId;
+            config.headers['X-Request-ID'] = storage.get().sessionId;
             return config;
         });
-    }, [userSessionActions]);
+    }, [storage, userSessionActions]);
 
     const recreateSessionId = () => {
-        sessionStorage.removeItem('sessionId');
+        storage.get().removeItem('sessionId');
         userSessionActions.clearSession();
     };
 

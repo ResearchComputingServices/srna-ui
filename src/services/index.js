@@ -1,9 +1,4 @@
-import history from './HistoryService';
-import routesAssembler from './RoutesAssemblerService';
-import interceptor from './InterceptorService';
-
-export {
-    history,
-    routesAssembler,
-    interceptor,
-};
+export { default as history } from './HistoryService';
+export { default as routesAssembler } from './RoutesAssemblerService';
+export { default as interceptor } from './InterceptorService';
+export { default as storage } from './StorageService';

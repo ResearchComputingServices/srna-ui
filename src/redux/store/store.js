@@ -6,9 +6,10 @@ import {
 } from '@reduxjs/toolkit';
 import { reducers } from '../slices';
 import userSession from '../slices/userSession';
+import { storage } from '../../services';
 
 function rehydrateStore() {
-    const $appData = JSON.parse(sessionStorage.getItem('$appData'));
+    const $appData = JSON.parse(storage.get().getItem('$appData'));
     if ($appData) {
         _.set($appData, 'userSession', userSession.initialState);
         return $appData;
@@ -18,7 +19,7 @@ function rehydrateStore() {
 
 function dehydrateStore(store) {
     const $appData = store.getState();
-    sessionStorage.setItem('$appData', JSON.stringify($appData));
+    storage.get().setItem('$appData', JSON.stringify($appData));
 }
 
 const store = configureStore({
