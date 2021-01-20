@@ -52,7 +52,7 @@ const FileUploader = ({
                 color='primary'
                 onClick={handleOpen}
             >
-                {filename == null ? t('fileUploader.chooseFile') : t('fileUploader.changeFile')}
+                {filename === '' ? t('fileUploader.chooseFile') : t('fileUploader.changeFile')}
             </Button>
             <DropzoneDialog
                 acceptedFiles={acceptedFiles}
