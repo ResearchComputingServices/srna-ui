@@ -17,13 +17,14 @@ export const useStyles = makeStyles(() => ({
 function Button(props) {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
-    const { className, children, onClick, disabled, inline } = props;
+    const { className, children, onClick, disabled, inline, variant } = props;
     const isMounted = useMountedState();
     const propsToSpread = { ...props };
     delete propsToSpread.className;
     delete propsToSpread.disabled;
     delete propsToSpread.onClick;
     delete propsToSpread.inline;
+    delete propsToSpread.variant;
     return (
         <Box
             className={clsx({ [classes.inline]: inline })}
@@ -46,15 +47,14 @@ function Button(props) {
                         }
                         : undefined
                 }
-                variant={!inline ? 'contained' : undefined}
+                variant={!inline ? (variant || 'contained') : undefined}
                 {...propsToSpread}
             >
                 {!loading && !inline && children}
                 {inline && children}
                 {!inline && loading && (
                     <CircularProgress
-                        height={25}
-                        width={25}
+                        size={25}
                     />
                 )}
             </MuiButton>
@@ -71,6 +71,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     inline: PropTypes.bool,
+    variant: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -78,6 +79,7 @@ Button.defaultProps = {
     disabled: undefined,
     className: '',
     inline: false,
+    variant: undefined,
 };
 
 export default Button;

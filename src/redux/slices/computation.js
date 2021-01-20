@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { clearSession } from '../actions';
 
-const initialState = { stage: 1 };
+const initialState = {
+    stage: 1,
+    refreshForResultsCounter: 0,
+};
 
 export default createSlice({
     name: 'computation',
@@ -12,6 +15,9 @@ export default createSlice({
             if (state.stage > 3 || state.stage < 1) {
                 state.stage = 1;
             }
+        },
+        incrementRefreshForResultsCounter: state => {
+            ++state.refreshForResultsCounter;
         },
     },
     extraReducers: {

@@ -27,7 +27,9 @@
     },
     "computationResult": {
         "pending": "Please wait, computation in progress",
-        "refresh": "Check if it's done"
+        "stillPending": "Please wait, computation is still in progress",
+        "refresh": "Check if it's done",
+        "refreshAgain": "Check again to see if it's done"
     },
     "fileUploader": {
         "chooseFile": "Choose File",

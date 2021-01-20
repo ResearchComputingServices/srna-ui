@@ -8,7 +8,7 @@ import { reducers } from '../slices';
 import userSession from '../slices/userSession';
 
 function rehydrateStore() {
-    const $appData = JSON.parse(localStorage.getItem('$appData'));
+    const $appData = JSON.parse(sessionStorage.getItem('$appData'));
     if ($appData) {
         _.set($appData, 'userSession', userSession.initialState);
         return $appData;
@@ -18,7 +18,7 @@ function rehydrateStore() {
 
 function dehydrateStore(store) {
     const $appData = store.getState();
-    localStorage.setItem('$appData', JSON.stringify($appData));
+    sessionStorage.setItem('$appData', JSON.stringify($appData));
 }
 
 const store = configureStore({

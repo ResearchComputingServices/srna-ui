@@ -68,7 +68,7 @@ export default function useSchema() {
             .when('onlyTags', {
                 is: true,
                 then: yup
-                    .object()
+                    .mixed()
                     .required(fileRequired),
             }),
     });

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography, Tooltip } from '@material-ui/core';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Button } from '..';
@@ -18,9 +18,10 @@ const FileUploader = ({
     acceptedFiles,
 }) => {
     const classes = useStyles();
-    const [filename, setFilename] = React.useState(null);
+    const [filename, setFilename] = React.useState('');
     const [open, setOpen] = React.useState(false);
     const [t] = useTranslation('common');
+    const characterLimit = 20;
 
     const handleClose = () => {
         setOpen(false);
@@ -36,7 +37,7 @@ const FileUploader = ({
         setOpen(true);
     };
 
-    const formatFilename = (str, limit) => (filename ? (str.length > limit ? `${str.slice(0, limit)}...` : str) : null);
+    const formatFilename = (str, limit) => (str ? (str.length > limit ? `${str.slice(0, limit)}...` : str) : null);
 
     return (
         <Box
@@ -61,7 +62,11 @@ const FileUploader = ({
                 open={open}
                 showPreviews
             />
-            {!error && formatFilename(filename, 80)}
+            {
+                !error && filename.length > characterLimit
+                    ? <Tooltip title={filename || ''}><Typography>{formatFilename(filename, characterLimit)}</Typography></Tooltip>
+                    : <Typography>{filename}</Typography>
+            }
             {error && <Typography className={classes.error}>{error.message}</Typography>}
         </Box>
     );

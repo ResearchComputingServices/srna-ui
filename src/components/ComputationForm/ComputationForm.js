@@ -25,7 +25,7 @@ export const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
         width: 750,
-        paddingLeft: theme.spacing(5),
+        paddingLeft: theme.spacing(3),
         '@media (max-width:780px)': { width: 650 },
         '@media (max-width:610px)': { width: 550 },
         '@media (max-width:554px)': { width: 500 },
@@ -81,10 +81,13 @@ function ComputationForm() {
         };
     }, []);
 
-    const onSubmit = computation => {
-        console.log(computation);
-        computationActions.changeStage(2);
-    };
+    const onSubmit = computation => new Promise(resolve => {
+        setTimeout(() => {
+            console.log(computation);
+            computationActions.changeStage(2);
+            resolve();
+        }, 1000);
+    });
 
     const watchedFollowHits = watch('followHits');
 

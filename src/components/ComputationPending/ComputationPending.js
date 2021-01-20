@@ -3,6 +3,7 @@ import { Paper, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Layout, Ripple, Button } from '..';
+import { useStore, useActions } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,10 +28,16 @@ const useStyles = makeStyles(theme => ({
 function ComputationResult() {
     const classes = useStyles();
     const [t] = useTranslation('common');
+    const computation = useStore('computation');
+    const computationActions = useActions('computation');
 
-    const refresh = () => {
-        console.log('Refresh results');
-    };
+    const refresh = () => new Promise(resolve => {
+        setTimeout(() => {
+            console.log('Refresh results');
+            computationActions.incrementRefreshForResultsCounter();
+            resolve();
+        }, 1000);
+    });
 
     return (
         <Layout>
@@ -45,14 +52,21 @@ function ComputationResult() {
                     display='flex'
                     flexDirection='row'
                 >
-                    <Typography variant='h6'>{t('computationResult.pending')}</Typography>
+                    <Typography variant='h6'>
+                        {!computation.refreshForResultsCounter
+                            ? t('computationResult.pending')
+                            : t('computationResult.stillPending')}
+
+                    </Typography>
                 </Box>
                 <Button
                     className={classes.button}
                     onClick={refresh}
                     variant='outlined'
                 >
-                    {t('computationResult.refresh')}
+                    {!computation.refreshForResultsCounter
+                        ? t('computationResult.refresh')
+                        : t('computationResult.refreshAgain')}
                 </Button>
             </Paper>
         </Layout>
