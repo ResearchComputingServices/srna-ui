@@ -18,6 +18,7 @@ import {
     Button,
 } from '..';
 import { useSchema } from '.';
+import { useActions } from '../../hooks';
 import formatOptions from './formatOptions.json';
 
 export const useStyles = makeStyles(theme => ({
@@ -48,12 +49,25 @@ export const useStyles = makeStyles(theme => ({
 
 function ComputationForm() {
     const schema = useSchema();
+    const computationActions = useActions('computation');
     const [t] = useTranslation('common');
     const classes = useStyles();
-    const { register, handleSubmit, unregister, control, setValue, errors, watch } = useForm({
+    const {
+        register,
+        handleSubmit,
+        unregister,
+        control,
+        setValue,
+        errors,
+        watch,
+        triggerValidation,
+    } = useForm({
         defaultValues: {
             followHits: true,
             length: 21,
+            shift: -8,
+            eCutoff: 0.01,
+            shiftHits: 10,
         },
         validationSchema: schema,
     });
@@ -69,6 +83,7 @@ function ComputationForm() {
 
     const onSubmit = computation => {
         console.log(computation);
+        computationActions.changeStage(2);
     };
 
     const watchedFollowHits = watch('followHits');
@@ -89,6 +104,7 @@ function ComputationForm() {
                         error={errors.fileSequence}
                         onSave={files => {
                             setValue('fileSequence', files[0]);
+                            triggerValidation('fileSequence');
                         }}
                     />
                     <Controller
@@ -127,7 +143,7 @@ function ComputationForm() {
                             as={<TextField />}
                             className={classes.field}
                             control={control}
-                            defaultValue=''
+                            defaultValue={-8}
                             error={!!errors.shift}
                             label={t('computationForm.shift')}
                             name='shift'
@@ -168,6 +184,7 @@ function ComputationForm() {
                             error={errors.fileTags}
                             onSave={files => {
                                 setValue('fileTags', files[0]);
+                                triggerValidation('fileTags');
                             }}
                         />
                     </Box>
@@ -185,7 +202,7 @@ function ComputationForm() {
                             as={<TextField />}
                             className={classes.field}
                             control={control}
-                            defaultValue=''
+                            defaultValue={0.01}
                             error={!!errors.eCutoff}
                             label={t('computationForm.eCutoff')}
                             name='eCutoff'
@@ -196,7 +213,7 @@ function ComputationForm() {
                             as={<TextField />}
                             className={classes.field}
                             control={control}
-                            defaultValue=''
+                            defaultValue={0.8}
                             error={!!errors.identityPerc}
                             label={t('computationForm.identityPerc')}
                             name='identityPerc'
@@ -220,10 +237,10 @@ function ComputationForm() {
                             as={<TextField />}
                             className={classes.largeField}
                             control={control}
-                            defaultValue=''
-                            error={!!errors.shitHits}
-                            label={t('computationForm.shitHits')}
-                            name='shitHits'
+                            defaultValue={10}
+                            error={!!errors.shiftHits}
+                            label={t('computationForm.shiftHits')}
+                            name='shiftHits'
                             required={watchedFollowHits}
                             type='number'
                             variant='outlined'

@@ -1,10 +1,12 @@
-import NotFound from '../components/NotFound';
-import ComputationForm from '../components/ComputationForm';
+import {
+    NotFound,
+    Computation,
+} from '../components';
 
 export default [
     {
         path: '/',
-        component: ComputationForm,
+        component: Computation,
     },
     {
         path: '*',

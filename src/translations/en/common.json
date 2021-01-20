@@ -4,7 +4,8 @@
         "dark": "Dark",
         "light": "Light",
         "theme": "Theme",
-        "settings": "Settings"
+        "settings": "Settings",
+        "clearSession": "Clear Session"
     },
     "computationForm": {
         "querySequence": "Query Sequence",
@@ -20,9 +21,13 @@
         "eCutoff": "Expected cut off",
         "identityPerc": "Identity (%)",
         "followHits": "Re-compute sRNAS with hits in the genome",
-        "shitHits": "Shift Position (for recomputing)",
+        "shiftHits": "Shift Position (for recomputing)",
         "fileRequired": "File is required",
         "fieldRequired": "Field is required"
+    },
+    "computationResult": {
+        "pending": "Please wait, computation in progress",
+        "refresh": "Check if it's done"
     },
     "fileUploader": {
         "chooseFile": "Choose File",

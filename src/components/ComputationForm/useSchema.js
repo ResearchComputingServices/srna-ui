@@ -4,6 +4,7 @@ import * as yup from 'yup';
 
 export default function useSchema() {
     const [t] = useTranslation('common');
+
     yup.addMethod(yup.number, 'formatEmptyNumber', function() {
         return this.transform(value => (isNaN(value) ? undefined : value));
     });
@@ -20,7 +21,7 @@ export default function useSchema() {
 
     return yup.object().shape({
         fileSequence: yup
-            .object()
+            .mixed()
             .required(fileRequired),
         format: yup
             .string()
@@ -48,7 +49,7 @@ export default function useSchema() {
             .formatEmptyNumber()
             .betweenOne()
             .required(),
-        shitHits: yup
+        shiftHits: yup
             .number()
             .integer()
             .formatEmptyNumber()
@@ -63,7 +64,7 @@ export default function useSchema() {
                     .required(),
             }),
         fileTags: yup
-            .object()
+            .mixed()
             .when('onlyTags', {
                 is: true,
                 then: yup

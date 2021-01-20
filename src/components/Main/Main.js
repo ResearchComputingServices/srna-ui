@@ -11,9 +11,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
     Brightness2 as LightModeIcon,
     Flare as DarkModeIcon,
+    LockOpen as ClearSessionIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import { Logo } from '..';
 import {
     useWindowSize,
@@ -51,7 +53,6 @@ function Main() {
     const classes = useStyles();
     const dimensions = useWindowSize();
     const [interceptorService, routesAssemblerService] = useService('interceptor', 'routesAssembler');
-    const userSession = useStore('userSession');
     const userSessionActions = useActions('userSession');
     const theme = useStore('theme');
     const themeActions = useActions('theme');
@@ -60,7 +61,7 @@ function Main() {
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
-    React.useEffect(() => {
+    const createSessionId = React.useCallback(() => {
         if (sessionStorage.sessionId) {
             userSessionActions.login(sessionStorage.sessionId);
         } else {
@@ -68,12 +69,26 @@ function Main() {
             userSessionActions.login(sessionId);
             sessionStorage.sessionId = sessionId;
         }
+        axios.interceptors.request.use(config => {
+            config.headers['X-Request-ID'] = sessionStorage.sessionId;
+            return config;
+        });
+    }, [userSessionActions]);
+
+    const recreateSessionId = () => {
+        sessionStorage.removeItem('sessionId');
+        userSessionActions.clearSession();
+    };
+
+    const createInterceptors = React.useCallback(() => {
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [interceptorService]);
 
-    console.log(userSession.sessionId);
+    React.useEffect(() => {
+        createSessionId();
+        createInterceptors();
+    }, [createSessionId, createInterceptors]);
 
     return (
         <>
@@ -94,6 +109,11 @@ function Main() {
                         <UserMenu
                             displayName={t('appBar.settings')}
                             dropdowns={[
+                                {
+                                    title: t('appBar.clearSession'),
+                                    Icon: <ClearSessionIcon />,
+                                    handler: recreateSessionId,
+                                },
                                 {
                                     title: `${!isDark ? t('appBar.dark') : t('appBar.light')} ${t('appBar.theme')}`,
                                     Icon: !isDark ? <LightModeIcon /> : <DarkModeIcon />,
