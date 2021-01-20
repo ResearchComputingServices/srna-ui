@@ -28,7 +28,7 @@
     "computationPending": {
         "title1": "Please wait. Computation in progress.",
         "title2": "Please wait. Computation is still in progress.",
-        "subtitle": "This usually takes a couple of minutes.",
+        "subtitle": "This usually takes a couple of minutes. Your progress will be lost if the tab is closed.",
         "refresh": "Check if it's done"
     },
     "computationResult": {
