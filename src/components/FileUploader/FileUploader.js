@@ -57,6 +57,7 @@ const FileUploader = ({
             <DropzoneDialog
                 acceptedFiles={acceptedFiles}
                 filesLimit={1}
+                maxFileSize={Infinity}
                 onClose={handleClose}
                 onSave={handleSave}
                 open={open}
@@ -87,7 +88,7 @@ FileUploader.defaultProps = {
     className: '',
     style: {},
     error: undefined,
-    acceptedFiles: undefined,
+    acceptedFiles: [],
 };
 
 export default FileUploader;

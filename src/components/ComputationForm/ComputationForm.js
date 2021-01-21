@@ -18,7 +18,7 @@ import {
     Button,
 } from '..';
 import { useSchema } from '.';
-import { useActions } from '../../hooks';
+import { useActions, useService } from '../../hooks';
 import formatOptions from './formatOptions.json';
 
 export const useStyles = makeStyles(theme => ({
@@ -52,6 +52,7 @@ function ComputationForm() {
     const computationActions = useActions('computation');
     const [t] = useTranslation('common');
     const classes = useStyles();
+    const computationService = useService('computation');
     const {
         register,
         handleSubmit,
@@ -81,13 +82,14 @@ function ComputationForm() {
         };
     }, []);
 
-    const onSubmit = computation => new Promise(resolve => {
-        setTimeout(() => {
-            console.log(computation);
+    const onSubmit = async computation => {
+        try {
+            await computationService.compute(computation);
             computationActions.changeStage(2);
-            resolve();
-        }, 1000);
-    });
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const watchedFollowHits = watch('followHits');
 
