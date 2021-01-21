@@ -2,7 +2,9 @@ import React from 'react';
 import { Paper, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Layout, Ripple, Button } from '..';
+import Layout from '../Layout';
+import Ripple from '../Ripple';
+import Button from '../Button';
 import { useStore, useActions } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({

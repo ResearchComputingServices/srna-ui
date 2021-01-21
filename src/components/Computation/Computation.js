@@ -1,6 +1,8 @@
 import React from 'react';
 import { useStore } from '../../hooks';
-import { ComputationForm, ComputationPending, ComputationResult } from '..';
+import ComputationForm from '../ComputationForm';
+import ComputationResult from '../ComputationResult';
+import ComputationPending from '../ComputationPending';
 
 function Computation() {
     const computation = useStore('computation');

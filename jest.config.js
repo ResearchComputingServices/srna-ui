@@ -1,10 +1,18 @@
 module.exports = {
-    collectCoverageFrom: [
-        'src/**/*.{js,jsx}',
-        '!src/index.js',
+    roots: [
+        '<rootDir>/src',
     ],
-    testMatch: [
-        '**/__tests__/**/*.(js|ts|tsx)',
-        '**/?(*.)+(spec|test).(js|ts|tsx)',
+    transform: { '^.+\\.tsx?$': 'ts-jest' },
+    setupFilesAfterEnv: [
+        '@testing-library/jest-dom/extend-expect',
+    ],
+    testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+    moduleFileExtensions: [
+        'ts',
+        'tsx',
+        'js',
+        'jsx',
+        'json',
+        'node',
     ],
 };

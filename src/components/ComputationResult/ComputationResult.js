@@ -3,7 +3,8 @@ import { Paper, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CheckCircle as CheckCircleIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Layout, Button } from '..';
+import Layout from '../Layout';
+import Button from '../Button';
 
 const useStyles = makeStyles(theme => ({
     root: {

@@ -16,7 +16,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import { Logo } from '..';
+import Logo from '../Logo';
 import {
     useWindowSize,
     useService,
@@ -49,6 +49,7 @@ export const useStyles = makeStyles(theme => ({
         paddingTop: 64,
     },
 }));
+
 function Main() {
     const classes = useStyles();
     const dimensions = useWindowSize();

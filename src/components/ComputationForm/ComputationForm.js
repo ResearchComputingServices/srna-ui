@@ -11,13 +11,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import {
-    FileUploader,
-    Layout,
-    FormContainer,
-    Button,
-} from '..';
-import { useSchema } from '.';
+import FileUploader from '../FileUploader';
+import Layout from '../Layout';
+import Button from '../Button';
+import FormContainer from '../FormContainer';
+import useSchema from './useSchema';
 import { useActions, useService } from '../../hooks';
 import formatOptions from './formatOptions.json';
 

@@ -54,12 +54,16 @@ function Button(props) {
                 {inline && children}
                 {!inline && loading && (
                     <CircularProgress
+                        data-testid='button-default-spinner'
                         size={25}
                     />
                 )}
             </MuiButton>
             {loading && inline && (
-                <CircularProgress size={35} />
+                <CircularProgress
+                    data-testid='button-inline-spinner'
+                    size={35}
+                />
             )}
         </Box>
     );

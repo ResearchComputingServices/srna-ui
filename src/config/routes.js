@@ -1,7 +1,5 @@
-import {
-    NotFound,
-    Computation,
-} from '../components';
+import NotFound from '../components/NotFound';
+import Computation from '../components/Computation';
 
 export default [
     {

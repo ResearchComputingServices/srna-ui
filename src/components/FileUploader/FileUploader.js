@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, makeStyles, Typography, Tooltip } from '@material-ui/core';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import { useTranslation } from 'react-i18next';
-import { Button } from '..';
+import Button from '../Button';
 
 export const useStyles = makeStyles(theme => ({
     error: { color: theme.palette.error.main },
