@@ -51,7 +51,7 @@ function ComputationForm() {
     const computationActions = useActions('computation');
     const [t] = useTranslation('common');
     const classes = useStyles();
-    const computationService = useService('computation');
+    const [computationService, sseService] = useService('computation', 'sse');
     const toastActions = useToast();
     const {
         register,
@@ -85,8 +85,10 @@ function ComputationForm() {
     const onSubmit = async computation => {
         try {
             const response = await computationService.compute(computation);
-            computationActions.setTaskId(response.taskId);
+            const { taskId } = response;
+            computationActions.setTaskId(taskId);
             computationActions.changeStage(2);
+            sseService.subscribe(taskId, () => computationActions.changeStage(3));
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
