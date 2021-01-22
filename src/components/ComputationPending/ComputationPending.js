@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Layout from '../Layout';
 import Ripple from '../Ripple';
 import Button from '../Button';
-import { useStore, useActions } from '../../hooks';
+import { useToast } from '../ToastContext';
+import { useStore, useActions, useService } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,16 +34,25 @@ function ComputationPending() {
     const [t] = useTranslation('common');
     const computation = useStore('computation');
     const computationActions = useActions('computation');
+    const computationService = useService('computation');
+    const toastActions = useToast();
 
-    const refresh = () => new Promise(resolve => {
-        setTimeout(() => {
-            computationActions.incrementRefreshForResultsCounter();
-            if (computation.refreshForResultsCounter > 1) {
+    const refresh = async () => {
+        try {
+            const response = await computationService.status(computation.taskId);
+            if (response.taskStatus === 'SUCCESS') {
                 computationActions.changeStage(3);
+            } else {
+                computationActions.incrementRefreshForResultsCounter();
             }
-            resolve();
-        }, 1000);
-    });
+        } catch (err) {
+            if (err && err.response && err.response.data && err.response.data.message) {
+                toastActions.error(err.response.data.message);
+            } else {
+                toastActions.error(t('error.unexpected'));
+            }
+        }
+    };
 
     return (
         <Layout>

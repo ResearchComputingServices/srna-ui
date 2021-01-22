@@ -17,6 +17,7 @@ import Button from '../Button';
 import FormContainer from '../FormContainer';
 import useSchema from './useSchema';
 import { useActions, useService } from '../../hooks';
+import { useToast } from '../ToastContext';
 import formatOptions from './formatOptions.json';
 
 export const useStyles = makeStyles(theme => ({
@@ -51,6 +52,7 @@ function ComputationForm() {
     const [t] = useTranslation('common');
     const classes = useStyles();
     const computationService = useService('computation');
+    const toastActions = useToast();
     const {
         register,
         handleSubmit,
@@ -82,10 +84,15 @@ function ComputationForm() {
 
     const onSubmit = async computation => {
         try {
-            await computationService.compute(computation);
+            const response = await computationService.compute(computation);
+            computationActions.setTaskId(response.taskId);
             computationActions.changeStage(2);
         } catch (err) {
-            console.log(err);
+            if (err && err.response && err.response.data && err.response.data.message) {
+                toastActions.error(err.response.data.message);
+            } else {
+                toastActions.error(t('error.unexpected'));
+            }
         }
     };
 

@@ -39,5 +39,8 @@
     "fileUploader": {
         "chooseFile": "Choose File",
         "changeFile": "Change File"
+    },
+    "error": {
+        "unexpected": "An unexpected error has occured."
     }
 }

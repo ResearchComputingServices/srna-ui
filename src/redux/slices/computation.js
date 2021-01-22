@@ -4,6 +4,8 @@ import { clearSession } from '../actions';
 const initialState = {
     stage: 1,
     refreshForResultsCounter: 0,
+    downloadResultsCounter: 0,
+    taskId: null,
 };
 
 export default createSlice({
@@ -16,8 +18,14 @@ export default createSlice({
                 state.stage = 1;
             }
         },
+        setTaskId: (state, action) => {
+            state.taskId = action.payload;
+        },
         incrementRefreshForResultsCounter: state => {
             ++state.refreshForResultsCounter;
+        },
+        incrementDownloadResultsCounter: state => {
+            ++state.downloadResultsCounter;
         },
     },
     extraReducers: {

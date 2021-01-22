@@ -3,6 +3,9 @@ import { Paper, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CheckCircle as CheckCircleIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import FileSaver from 'file-saver';
+import { useToast } from '../ToastContext';
+import { useService, useStore, useActions, useMount } from '../../hooks';
 import Layout from '../Layout';
 import Button from '../Button';
 
@@ -35,13 +38,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ComputationResult() {
+    const computationService = useService('computation');
+    const toastActions = useToast();
     const classes = useStyles();
+    const computation = useStore('computation');
+    const computationActions = useActions('computation');
     const [t] = useTranslation('common');
 
-    const download = () => new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, 1000);
+    const saveFile = response => {
+        const extension = 'xlsx';
+        FileSaver.saveAs(response, `output.${extension}`);
+    };
+
+    const download = async () => {
+        try {
+            const response = await computationService.outputFile(computation.taskId);
+            saveFile(response);
+            computationActions.incrementDownloadResultsCounter();
+        } catch (err) {
+            if (err && err.response && err.response.data && err.response.data.message) {
+                toastActions.error(err.response.data.message);
+            } else {
+                console.log(err);
+                toastActions.error(t('error.unexpected'));
+            }
+        }
+    };
+
+    useMount(() => {
+        if (computation.downloadResultsCounter === 0) {
+            download();
+        }
     });
 
     return (

@@ -9,10 +9,15 @@ class ComputationService {
         const formData = new FormData();
         Object.keys(data).forEach(key => formData.append(snakeCase(key), data[key]));
         const config = { headers: { 'content-type': 'multipart/form-data' } };
-        return axios.post(`${this.url}/compute_srnas`, formData, config);
+        return axios.post(`${this.url}/compute_srnas`, formData, config).then(res => res.data);
     }
 
-    result = () => axios.get(`${this.url}/get_output_file`);
+    status = taskId => axios.get(`${this.url}/get_task_status`, { params: { task_id: taskId } }).then(res => res.data);
+
+    outputFile = taskId => axios.get(`${this.url}/get_output_file`, {
+        params: { task_id: taskId },
+        responseType: 'blob',
+    }).then(res => res.data);
 }
 
 const computationService = new ComputationService();
