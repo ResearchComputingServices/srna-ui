@@ -3,10 +3,11 @@ import ClientConfig from '../client-configurations';
 class SSEService {
     url = (new ClientConfig()).getApi();
 
-    subscribe = (message, callback) => {
-        const source = new EventSource(`${this.url}/stream`);
-        source.addEventListener(message, callback, false);
-    }
+    source = new EventSource(`${this.url}/stream`);
+
+    subscribe = (message, callback) => this.source.addEventListener(message, callback, false);
+
+    unsubscribe = message => this.source.removeEventListener(message);
 }
 
 const sseService = new SSEService();

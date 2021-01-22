@@ -19,6 +19,7 @@ import useSchema from './useSchema';
 import { useActions, useService } from '../../hooks';
 import { useToast } from '../ToastContext';
 import formatOptions from './formatOptions.json';
+import { computation } from '../../services';
 
 export const useStyles = makeStyles(theme => ({
     root: {
@@ -79,6 +80,9 @@ function ComputationForm() {
         return () => {
             unregister('fileSequence');
             unregister('fileTags');
+            if (computation.taskId) {
+                sseService.unsubscribe(computation.taskId);
+            }
         };
     }, []);
 
