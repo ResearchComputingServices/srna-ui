@@ -15,7 +15,6 @@ import {
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 import Logo from '../Logo';
 import {
     useWindowSize,
@@ -71,10 +70,6 @@ function Main() {
             userSessionActions.login(sessionId);
             storage.get().sessionId = sessionId;
         }
-        axios.interceptors.request.use(config => {
-            config.headers['X-Request-ID'] = storage.get().sessionId;
-            return config;
-        });
     }, [storage, userSessionActions]);
 
     const recreateSessionId = () => {
