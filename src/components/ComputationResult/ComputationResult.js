@@ -47,7 +47,8 @@ function ComputationResult() {
 
     const saveFile = response => {
         const extension = 'xlsx';
-        FileSaver.saveAs(response, `output.${extension}`);
+        const filename = 'sRNAComputation';
+        FileSaver.saveAs(response, `${filename}.${extension}`);
     };
 
     const download = async () => {
