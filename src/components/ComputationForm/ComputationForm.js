@@ -19,7 +19,6 @@ import useSchema from './useSchema';
 import { useActions, useService } from '../../hooks';
 import { useToast } from '../ToastContext';
 import formatOptions from './formatOptions.json';
-import { computation } from '../../services';
 
 export const useStyles = makeStyles(theme => ({
     root: {
@@ -52,7 +51,7 @@ function ComputationForm() {
     const computationActions = useActions('computation');
     const [t] = useTranslation('common');
     const classes = useStyles();
-    const [computationService, sseService] = useService('computation', 'sse');
+    const computationService = useService('computation');
     const toastActions = useToast();
     const {
         register,
@@ -80,9 +79,6 @@ function ComputationForm() {
         return () => {
             unregister('fileSequence');
             unregister('fileTags');
-            if (computation.taskId) {
-                sseService.unsubscribe(computation.taskId);
-            }
         };
     }, []);
 
@@ -92,7 +88,6 @@ function ComputationForm() {
             const { taskId } = response;
             computationActions.setTaskId(taskId);
             computationActions.changeStage(2);
-            sseService.subscribe(taskId, () => computationActions.changeStage(3));
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
