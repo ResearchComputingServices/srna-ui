@@ -1,5 +1,5 @@
 class StorageService {
-    get = () => sessionStorage
+    get = () => localStorage
 }
 
 const storageService = new StorageService();

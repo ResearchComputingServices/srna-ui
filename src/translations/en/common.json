@@ -7,6 +7,15 @@
         "settings": "Settings",
         "clearSession": "Clear Session"
     },
+    "computations": {
+        "title": "Computations",
+        "taskId": "Task Id",
+        "filename": "Filename",
+        "createdDate": "Created Date",
+        "status": "Status",
+        "downloadResult": "Download Result",
+        "refreshComputations": "Refresh Computations"
+    },
     "computationForm": {
         "querySequence": "Query Sequence",
         "generalSettings": "General Settings",
@@ -28,7 +37,7 @@
     "computationPending": {
         "title1": "Please wait. Computation in progress.",
         "title2": "Please wait. Computation is still in progress.",
-        "subtitle": "This usually takes a couple of minutes. Your progress will be lost if the tab is closed.",
+        "subtitle": "This usually takes a couple of minutes.",
         "refresh": "Check if it's done"
     },
     "computationResult": {

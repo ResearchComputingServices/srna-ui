@@ -25,46 +25,90 @@ function Button(props) {
     delete propsToSpread.onClick;
     delete propsToSpread.inline;
     delete propsToSpread.variant;
+    const { startIcon, endIcon } = propsToSpread;
+    delete propsToSpread.startIcon;
+    delete propsToSpread.endIcon;
     return (
         <Box
             className={clsx({ [classes.inline]: inline })}
             display='inline'
         >
-            <MuiButton
-                className={className}
-                disabled={loading || disabled}
-                onClick={
-                    typeof onClick === 'function'
-                        ? async () => {
-                            setLoading(true);
-                            try {
-                                await onClick();
-                            } catch (err) {} finally {
-                                if (isMounted()) {
-                                    setLoading(false);
+            {
+                startIcon == null && endIcon == null
+                    ? (
+                        <>
+                            <MuiButton
+                                className={className}
+                                disabled={loading || disabled}
+                                onClick={
+                                    typeof onClick === 'function'
+                                        ? async () => {
+                                            setLoading(true);
+                                            try {
+                                                await onClick();
+                                            } catch (err) {} finally {
+                                                if (isMounted()) {
+                                                    setLoading(false);
+                                                }
+                                            }
+                                        }
+                                        : undefined
                                 }
+                                variant={!inline ? (variant || 'contained') : undefined}
+                                {...propsToSpread}
+                            >
+                                {!loading && !inline && children}
+                                {inline && children}
+                                {!inline && loading && (
+                                    <CircularProgress
+                                        data-testid='button-default-spinner'
+                                        size={25}
+                                    />
+                                )}
+                            </MuiButton>
+                            {loading && inline && (
+                                <CircularProgress
+                                    data-testid='button-inline-spinner'
+                                    size={35}
+                                />
+                            )}
+                        </>
+                    )
+                    : (
+                        <MuiButton
+                            className={className}
+                            disabled={loading || disabled}
+                            {...propsToSpread}
+                            endIcon={!loading ? endIcon : endIcon && (
+                                <CircularProgress
+                                    data-testid='button-start-icon-spinner'
+                                    size={25}
+                                />
+                            )}
+                            onClick={
+                                typeof onClick === 'function'
+                                    ? async () => {
+                                        setLoading(true);
+                                        try {
+                                            await onClick();
+                                        } catch (err) {} finally {
+                                            if (isMounted()) {
+                                                setLoading(false);
+                                            }
+                                        }
+                                    }
+                                    : undefined
                             }
-                        }
-                        : undefined
-                }
-                variant={!inline ? (variant || 'contained') : undefined}
-                {...propsToSpread}
-            >
-                {!loading && !inline && children}
-                {inline && children}
-                {!inline && loading && (
-                    <CircularProgress
-                        data-testid='button-default-spinner'
-                        size={25}
-                    />
-                )}
-            </MuiButton>
-            {loading && inline && (
-                <CircularProgress
-                    data-testid='button-inline-spinner'
-                    size={35}
-                />
-            )}
+                            startIcon={!loading ? startIcon : startIcon && (
+                                <CircularProgress
+                                    data-testid='button-end-icon-spinner'
+                                    size={18}
+                                />
+                            )}
+                            variant={variant}
+                        />
+                    )
+            }
         </Box>
     );
 }

@@ -52,7 +52,7 @@ export const useStyles = makeStyles(theme => ({
 function Main() {
     const classes = useStyles();
     const dimensions = useWindowSize();
-    const [interceptorService, routesAssemblerService] = useService('interceptor', 'routesAssembler');
+    const [historyService, interceptorService, routesAssemblerService] = useService('history', 'interceptor', 'routesAssembler');
     const userSessionActions = useActions('userSession');
     const theme = useStore('theme');
     const themeActions = useActions('theme');
@@ -72,9 +72,14 @@ function Main() {
         }
     }, [storage, userSessionActions]);
 
-    const recreateSessionId = () => {
+    const clearSession = () => {
         storage.get().removeItem('sessionId');
         userSessionActions.clearSession();
+        if (historyService.getUrl() !== '/') {
+            historyService.go('/');
+        } else {
+            historyService.reload();
+        }
     };
 
     const createInterceptors = React.useCallback(() => {
@@ -109,7 +114,7 @@ function Main() {
                                 {
                                     title: t('appBar.clearSession'),
                                     Icon: <ClearSessionIcon />,
-                                    handler: recreateSessionId,
+                                    handler: clearSession,
                                 },
                                 {
                                     title: `${!isDark ? t('appBar.dark') : t('appBar.light')} ${t('appBar.theme')}`,

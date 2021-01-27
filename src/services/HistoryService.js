@@ -28,6 +28,8 @@ class HistoryService {
         return this.routes.pop();
     }
 
+    reload = () => this.history.go(0)
+
     routesLength = () => this.routes.length;
 
     size = () => this.history.length;

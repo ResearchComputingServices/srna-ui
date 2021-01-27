@@ -17,6 +17,7 @@
         "history": "^4.10.1",
         "i18next": "^19.8.4",
         "lodash": "^4.17.20",
+        "material-table": "1.57.2",
         "material-ui-dropzone": "^3.5.0",
         "md5": "^2.3.0",
         "moment": "^2.29.1",

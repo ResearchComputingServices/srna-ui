@@ -14,6 +14,8 @@ class ComputationService {
 
     status = taskId => axios.get(`${this.url}/get_task_status`, { params: { task_id: taskId } }).then(res => res.data);
 
+    statuses = taskIds => axios.post(`${this.url}/get_tasks_status`, { tasks: taskIds }).then(res => res.data);
+
     outputFile = taskId => axios.get(`${this.url}/get_output_file`, {
         params: { task_id: taskId },
         responseType: 'blob',

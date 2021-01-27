@@ -19,6 +19,7 @@ import useSchema from './useSchema';
 import { useActions, useService } from '../../hooks';
 import { useToast } from '../ToastContext';
 import formatOptions from './formatOptions.json';
+import historyService from '../../services/HistoryService';
 
 export const useStyles = makeStyles(theme => ({
     root: {
@@ -48,7 +49,7 @@ export const useStyles = makeStyles(theme => ({
 
 function ComputationForm() {
     const schema = useSchema();
-    const computationActions = useActions('computation');
+    const computationsActions = useActions('computations');
     const [t] = useTranslation('common');
     const classes = useStyles();
     const computationService = useService('computation');
@@ -62,6 +63,7 @@ function ComputationForm() {
         errors,
         watch,
         triggerValidation,
+        getValues,
     } = useForm({
         defaultValues: {
             followHits: true,
@@ -86,8 +88,11 @@ function ComputationForm() {
         try {
             const response = await computationService.compute(computation);
             const { taskId } = response;
-            computationActions.setTaskId(taskId);
-            computationActions.changeStage(2);
+            computationsActions.createComputation({
+                taskId,
+                filename: getValues('fileSequence').name,
+            });
+            historyService.go('/');
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
