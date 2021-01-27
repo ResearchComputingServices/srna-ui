@@ -6,6 +6,7 @@ import {
     Toolbar,
     Box,
     Typography,
+    Link,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -106,7 +107,13 @@ function Main() {
                             }
                             variant='h5'
                         >
-                            {t('appBar.title')}
+                            <Link
+                                color='inherit'
+                                href='/'
+                                style={{ textDecoration: 'none' }}
+                            >
+                                {t('appBar.title')}
+                            </Link>
                         </Typography>
                         <UserMenu
                             displayName={t('appBar.settings')}

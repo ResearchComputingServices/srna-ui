@@ -34,11 +34,17 @@
         "fileRequired": "File is required",
         "fieldRequired": "Field is required"
     },
-    "computationPending": {
+    "computationStarted": {
         "title1": "Please wait. Computation in progress.",
         "title2": "Please wait. Computation is still in progress.",
         "subtitle": "This usually takes a couple of minutes.",
         "refresh": "Check if it's done"
+    },
+    "computationPending": {
+        "title1": "Please wait. Computation is pending.",
+        "title2": "Please wait. Computation is still pending.",
+        "subtitle": "This will take a couple of minutes. Task will be started once other computations in the system are completed.",
+        "refresh": "Check if it has started"
     },
     "computationResult": {
         "complete": "Computation complete!",

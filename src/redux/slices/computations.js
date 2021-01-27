@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { capitalize } from 'lodash';
 import { clearSession } from '../actions';
 
 const initialState = { data: {} };
@@ -17,17 +18,23 @@ export default createSlice({
                 downloadResultsCounter: 0,
             };
         },
+        startComputation: (state, action) => {
+            state.data[action.payload] = {
+                ...state.data[action.payload],
+                status: 'Started',
+            };
+        },
         completeComputation: (state, action) => {
             state.data[action.payload] = {
                 ...state.data[action.payload],
-                status: 'Completed',
+                status: 'Success',
             };
         },
-        completeComputations: (state, action) => {
-            action.payload.forEach(taskId => {
-                state.data[taskId] = {
-                    ...state.data[taskId],
-                    status: 'Completed',
+        updateComputationStatuses: (state, action) => {
+            action.payload.forEach(status => {
+                state.data[status.taskId] = {
+                    ...state.data[status.taskId],
+                    status: capitalize(status.taskStatus),
                 };
             });
         },

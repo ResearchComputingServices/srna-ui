@@ -1,7 +1,12 @@
 import React from 'react';
 import FileSaver from 'file-saver';
 import { Tooltip, Box, IconButton } from '@material-ui/core';
-import { Refresh as RefreshIcon, GetApp as DownloadIcon, Add as CreateIcon } from '@material-ui/icons';
+import {
+    Refresh as RefreshIcon,
+    GetApp as DownloadIcon,
+    Add as CreateIcon,
+    PausePresentation as PendingIcon,
+} from '@material-ui/icons';
 import MaterialTable from 'material-table';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,7 +16,7 @@ import Button from '../Button';
 import Ripple from '../Ripple';
 import { useActions, useService, useStore } from '../../hooks';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     refreshIcon: {
         height: 35,
         width: 35,
@@ -19,6 +24,11 @@ const useStyles = makeStyles(() => ({
     downloadIcon: {
         height: 30,
         width: 30,
+    },
+    pendingIcon: {
+        width: 30,
+        height: 30,
+        fill: theme.palette.warning.main,
     },
 }));
 
@@ -43,12 +53,10 @@ function Computations() {
             const response = await computationService.outputFile(computation.taskId);
             saveFile(computation, response);
             computationsActions.attemptComputationDownload(computation.taskId);
-            // Get the task object and increments it's download counter to indicate that results were downloaded once.
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
             } else {
-                console.log(err);
                 toastActions.error(t('error.unexpected'));
             }
         }
@@ -75,17 +83,20 @@ function Computations() {
             title: t('computations.downloadResult'),
             field: 'downloadResult',
             filtering: false,
-            render: rowData => (
-                rowData.status === 'Pending'
-                    ? (
+            render: rowData => {
+                if (rowData.status === 'Started') {
+                    return (
                         <Box ml={1.5}>
                             <Ripple
                                 color='warning'
                                 size={50}
                             />
                         </Box>
-                    )
-                    : (
+                    );
+                }
+
+                if (rowData.status === 'Success') {
+                    return (
                         <Box ml={1}>
                             <IconButton
                                 color='primary'
@@ -95,10 +106,18 @@ function Computations() {
                                 }}
                             >
                                 <DownloadIcon className={classes.downloadIcon} />
-
                             </IconButton>
                         </Box>
-                    )),
+                    );
+                }
+
+                return (
+                    <Box ml={2.5}>
+                        <PendingIcon className={classes.pendingIcon} />
+                    </Box>
+                );
+            },
+
         },
     ];
 
@@ -110,13 +129,7 @@ function Computations() {
         try {
             setLoading(true);
             const statuses = await computationService.statuses(Object.keys(computations.data));
-            const completedStatuses = [];
-            statuses.forEach(status => {
-                if (status.taskStatus === 'SUCCESS') {
-                    completedStatuses.push(status.taskId);
-                }
-            });
-            computationsActions.completeComputations(completedStatuses);
+            computationsActions.updateComputationStatuses(statuses);
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
@@ -132,7 +145,7 @@ function Computations() {
         <Box
             ml={3}
             mr={3}
-            mt={5}
+            mt={3}
         >
             <Box
                 alignItems='center'
