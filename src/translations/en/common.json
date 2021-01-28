@@ -27,7 +27,7 @@
         "shift": "Shift Position",
         "length": "sRNA Length",
         "onlyTags": "Compute sRNAs only for these tags",
-        "blast": "Blast",
+        "blast": "Blast sRNAs against input genome",
         "eCutoff": "Expected cut off",
         "identityPerc": "Identity (%)",
         "followHits": "Re-compute sRNAS with hits in the genome",

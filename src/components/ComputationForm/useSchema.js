@@ -32,6 +32,14 @@ export default function useSchema() {
             .integer()
             .formatEmptyNumber()
             .noZero()
+            .test(
+                'equal',
+                `${t('computationForm.shift')} and ${t('computationForm.shiftHits')} should not be equal`,
+                function(v) {
+                    const shiftHits = this.resolve(yup.ref('shiftHits'));
+                    return v !== shiftHits;
+                },
+            )
             .required(),
         length: yup
             .number()
@@ -76,6 +84,14 @@ export default function useSchema() {
             .integer()
             .formatEmptyNumber()
             .noZero()
+            .test(
+                'equal',
+                `${t('computationForm.shift')} and ${t('computationForm.shiftHits')} should not be equal`,
+                function(v) {
+                    const shift = this.resolve(yup.ref('shift'));
+                    return v !== shift;
+                },
+            )
             .when('followHits', {
                 is: true,
                 then: yup

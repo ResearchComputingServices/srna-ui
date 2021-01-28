@@ -16,7 +16,7 @@ import Layout from '../Layout';
 import Button from '../Button';
 import FormContainer from '../FormContainer';
 import useSchema from './useSchema';
-import { useActions, useService } from '../../hooks';
+import { useActions, usePrevious, useService } from '../../hooks';
 import { useToast } from '../ToastContext';
 import formatOptions from './formatOptions.json';
 import historyService from '../../services/HistoryService';
@@ -107,6 +107,24 @@ function ComputationForm() {
 
     const watchedFollowHits = watch('followHits');
     const watchedBlast = watch('blast');
+    const watchedShift = watch('shift');
+    const watchedShiftHits = watch('shiftHits');
+    const previousWatchedShift = usePrevious(watchedShift);
+    const previousWatchedShiftHits = usePrevious(watchedShiftHits);
+
+    React.useEffect(() => {
+        if (watchedShift !== previousWatchedShift && previousWatchedShift != null) {
+            triggerValidation();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watchedShift]);
+
+    React.useEffect(() => {
+        if (watchedShiftHits !== previousWatchedShiftHits && previousWatchedShiftHits != null) {
+            triggerValidation();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watchedShiftHits]);
 
     return (
         <Layout>

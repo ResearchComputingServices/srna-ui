@@ -78,6 +78,8 @@ function Computations() {
         {
             title: t('computations.createdDate'),
             field: 'createdDate',
+            render: row => moment.unix(row.createdDate).format('LLLL'),
+            defaultSort: 'desc',
         },
         {
             title: t('computations.downloadResult'),
@@ -179,7 +181,7 @@ function Computations() {
                     taskId: computations.data[key].taskId,
                     status: computations.data[key].status,
                     filename: computations.data[key].filename,
-                    createdDate: moment(computations.data[key].createdDate).format('LLLL'),
+                    createdDate: moment(computations.data[key].createdDate).unix(),
                 }))}
                 isLoading={loading}
                 onRowClick={onRowClick}
