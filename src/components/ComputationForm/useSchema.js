@@ -39,16 +39,38 @@ export default function useSchema() {
             .formatEmptyNumber()
             .positive()
             .required(),
+        fileTags: yup
+            .mixed()
+            .when('onlyTags', {
+                is: true,
+                then: yup
+                    .mixed()
+                    .required(fileRequired),
+            }),
         eCutoff: yup
             .number()
             .formatEmptyNumber()
             .positive()
-            .required(),
+            .when('blast', {
+                is: true,
+                then: yup
+                    .number()
+                    .formatEmptyNumber()
+                    .positive()
+                    .required(),
+            }),
         identityPerc: yup
             .number()
             .formatEmptyNumber()
             .betweenOne()
-            .required(),
+            .when('blast', {
+                is: true,
+                then: yup
+                    .number()
+                    .formatEmptyNumber()
+                    .betweenOne()
+                    .required(),
+            }),
         shiftHits: yup
             .number()
             .integer()
@@ -62,14 +84,6 @@ export default function useSchema() {
                     .formatEmptyNumber()
                     .noZero()
                     .required(),
-            }),
-        fileTags: yup
-            .mixed()
-            .when('onlyTags', {
-                is: true,
-                then: yup
-                    .mixed()
-                    .required(fileRequired),
             }),
     });
 }

@@ -32,13 +32,14 @@ export const useStyles = makeStyles(theme => ({
         '@media (max-width:504px)': { width: 450 },
     },
     title: { paddingTop: theme.spacing(1) },
-    field: { margin: theme.spacing(2) },
+    field: { margin: theme.spacing(1.8) },
     button: {
+        marginBottom: theme.spacing(1.5),
+        marginTop: theme.spacing(1.5),
         width: 100,
-        marginBottom: theme.spacing(2),
     },
     largeField: {
-        margin: theme.spacing(2),
+        margin: theme.spacing(1.8),
         width: 400,
     },
     error: {
@@ -66,10 +67,12 @@ function ComputationForm() {
         getValues,
     } = useForm({
         defaultValues: {
-            followHits: true,
             length: 21,
             shift: -8,
+            blast: true,
             eCutoff: 0.01,
+            identityPerc: 0.8,
+            followHits: true,
             shiftHits: 10,
         },
         validationSchema: schema,
@@ -103,11 +106,12 @@ function ComputationForm() {
     };
 
     const watchedFollowHits = watch('followHits');
+    const watchedBlast = watch('blast');
 
     return (
         <Layout>
             <FormContainer className={classes.root}>
-                <Box mb={2}>
+                <Box>
                     <Typography
                         className={clsx(classes.title, classes.field)}
                         variant='h5'
@@ -146,7 +150,7 @@ function ComputationForm() {
                         }
                     />
                 </Box>
-                <Box mb={2}>
+                <Box>
                     <Typography
                         className={clsx(classes.title, classes.field)}
                         variant='h5'
@@ -204,65 +208,79 @@ function ComputationForm() {
                             }}
                         />
                     </Box>
-                </Box>
-                <Box mb={2}>
-                    <Typography
-                        className={clsx(classes.title, classes.field)}
-                        variant='h5'
-                    >
-                        {t('computationForm.blastSettings')}
-                        :
-                    </Typography>
                     <Box display='flex'>
                         <Controller
-                            as={<TextField />}
+                            as={<FormControlLabel control={<Checkbox color='primary' />} />}
                             className={classes.field}
                             control={control}
-                            defaultValue={0.01}
-                            error={!!errors.eCutoff}
-                            label={t('computationForm.eCutoff')}
-                            name='eCutoff'
-                            required
-                            variant='outlined'
-                        />
-                        <Controller
-                            as={<TextField />}
-                            className={classes.field}
-                            control={control}
-                            defaultValue={0.8}
-                            error={!!errors.identityPerc}
-                            label={t('computationForm.identityPerc')}
-                            name='identityPerc'
-                            required
-                            type='number'
-                            variant='outlined'
-                        />
-                    </Box>
-                    <Controller
-                        as={<FormControlLabel control={<Checkbox color='primary' />} />}
-                        className={classes.field}
-                        control={control}
-                        defaultValue
-                        error={(!!errors.followHits).toString()}
-                        label={t('computationForm.followHits')}
-                        name='followHits'
-                        variant='outlined'
-                    />
-                    <Box display='flex'>
-                        <Controller
-                            as={<TextField />}
-                            className={classes.largeField}
-                            control={control}
-                            defaultValue={10}
-                            error={!!errors.shiftHits}
-                            label={t('computationForm.shiftHits')}
-                            name='shiftHits'
-                            required={watchedFollowHits}
-                            type='number'
+                            defaultValue
+                            error={(!!errors.onlyTags).toString()}
+                            label={t('computationForm.blast')}
+                            name='blast'
                             variant='outlined'
                         />
                     </Box>
                 </Box>
+                {watchedBlast && (
+                    <Box>
+                        <Typography
+                            className={clsx(classes.title, classes.field)}
+                            variant='h5'
+                        >
+                            {t('computationForm.blastSettings')}
+                            :
+                        </Typography>
+                        <Box display='flex'>
+                            <Controller
+                                as={<TextField />}
+                                className={classes.field}
+                                control={control}
+                                defaultValue={0.01}
+                                error={!!errors.eCutoff}
+                                label={t('computationForm.eCutoff')}
+                                name='eCutoff'
+                                required
+                                variant='outlined'
+                            />
+                            <Controller
+                                as={<TextField />}
+                                className={classes.field}
+                                control={control}
+                                defaultValue={0.8}
+                                error={!!errors.identityPerc}
+                                label={t('computationForm.identityPerc')}
+                                name='identityPerc'
+                                required
+                                type='number'
+                                variant='outlined'
+                            />
+                        </Box>
+                        <Controller
+                            as={<FormControlLabel control={<Checkbox color='primary' />} />}
+                            className={classes.field}
+                            control={control}
+                            defaultValue
+                            error={(!!errors.followHits).toString()}
+                            label={t('computationForm.followHits')}
+                            name='followHits'
+                            variant='outlined'
+                        />
+                        <Box display='flex'>
+                            <Controller
+                                as={<TextField />}
+                                className={classes.largeField}
+                                control={control}
+                                defaultValue={10}
+                                error={!!errors.shiftHits}
+                                label={t('computationForm.shiftHits')}
+                                name='shiftHits'
+                                required={watchedFollowHits}
+                                type='number'
+                                variant='outlined'
+                            />
+                        </Box>
+                    </Box>
+                )}
                 <Box
                     className={classes.field}
                 >
