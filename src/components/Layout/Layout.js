@@ -37,8 +37,8 @@ function Layout({
                     [classes.progressBar]: linearProgress,
                 })}
                 >
-                    {!linearProgress && <Spinner />}
-                    {linearProgress && <LinearProgress />}
+                    {!linearProgress && <Spinner data-testid='spinner' />}
+                    {linearProgress && <LinearProgress data-testid='spinner' />}
                 </Box>
             )}
             <Box
@@ -50,6 +50,7 @@ function Layout({
                 display='flex'
                 flexDirection='column'
                 {...props}
+                data-testid='layout-content'
                 style={style}
             >
                 {!error && (!unmountOnLoad ? children : !loading && children)}
