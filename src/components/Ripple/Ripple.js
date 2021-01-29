@@ -38,7 +38,7 @@ export const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Ripple({ color, className, style, size }) {
+export default function Ripple({ color, className, style, size, ...rest }) {
     const classes = useStyles();
     const theme = useTheme();
     const colorMap = {
@@ -61,6 +61,7 @@ export default function Ripple({ color, className, style, size }) {
 
     return (
         <Box
+            {...rest}
             className={clsx(classes.root, className)}
             style={{ width: size, height: size, ...style }}
         >
