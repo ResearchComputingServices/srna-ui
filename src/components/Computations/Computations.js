@@ -6,6 +6,8 @@ import {
     GetApp as DownloadIcon,
     Add as CreateIcon,
     PausePresentation as PendingIcon,
+    Cancel as FailedIcon,
+    HourglassEmpty as RetryIcon,
 } from '@material-ui/icons';
 import MaterialTable from 'material-table';
 import { useTranslation } from 'react-i18next';
@@ -17,9 +19,7 @@ import Ripple from '../Ripple';
 import { useActions, useService, useStore } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
-    createButton: {
-        textTransform: 'none'
-    },
+    createButton: { textTransform: 'none' },
     refreshIcon: {
         height: 35,
         width: 35,
@@ -29,6 +29,16 @@ const useStyles = makeStyles(theme => ({
         width: 30,
     },
     pendingIcon: {
+        width: 30,
+        height: 30,
+        fill: theme.palette.warning.main,
+    },
+    failedIcon: {
+        width: 30,
+        height: 30,
+        fill: theme.palette.error.main,
+    },
+    retryIcon: {
         width: 30,
         height: 30,
         fill: theme.palette.warning.main,
@@ -112,6 +122,22 @@ function Computations() {
                             >
                                 <DownloadIcon className={classes.downloadIcon} />
                             </IconButton>
+                        </Box>
+                    );
+                }
+
+                if (rowData.status === 'Failed' || rowData.status === 'Revoked') {
+                    return (
+                        <Box ml={2.5}>
+                            <FailedIcon className={classes.failedIcon} />
+                        </Box>
+                    );
+                }
+
+                if (rowData.status === 'Retry') {
+                    return (
+                        <Box ml={2.5}>
+                            <RetryIcon className={classes.retryIcon} />
                         </Box>
                     );
                 }

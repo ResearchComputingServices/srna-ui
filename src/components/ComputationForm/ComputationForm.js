@@ -158,7 +158,7 @@ function ComputationForm() {
                                 className={classes.history}
                                 onClick={() => historyService.go('/history')}
                             >
-                                <HistoryIcon className={classes.historyIcon}/>
+                                <HistoryIcon className={classes.historyIcon} />
                             </IconButton>
                         </Tooltip>
                     </Box>
@@ -324,9 +324,7 @@ function ComputationForm() {
                         </Box>
                     </Box>
                 )}
-                <Box
-                    className={classes.field}
-                >
+                <Box className={classes.field}>
                     <Button
                         className={classes.button}
                         color='primary'

@@ -45,8 +45,6 @@ describe('Main', () => {
         );
         expect(screen.getByText('sRNA Computation')).toBeInTheDocument();
         expect(screen.getByText('Settings')).toBeInTheDocument();
-        expect(screen.getByText('Create')).toBeInTheDocument();
-        expect(screen.getByText('Computations')).toBeInTheDocument();
     });
 
     test('settings menu', async () => {

@@ -7,6 +7,8 @@ import {
     CheckCircle as CheckCircleIcon,
     GetApp as DownloadIcon,
     PausePresentation as PendingIcon,
+    Cancel as FailedIcon,
+    HourglassEmpty as RetryIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import FileSaver from 'file-saver';
@@ -40,6 +42,18 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2),
     },
     pendingIcon: {
+        fill: theme.palette.warning.main,
+        width: 50,
+        height: 50,
+        marginBottom: theme.spacing(2),
+    },
+    failedIcon: {
+        fill: theme.palette.error.main,
+        width: 50,
+        height: 50,
+        marginBottom: theme.spacing(2),
+    },
+    retryIcon: {
         fill: theme.palette.warning.main,
         width: 50,
         height: 50,
@@ -202,21 +216,36 @@ function ComputationResult({ match }) {
                 buttonTitle={t('computationResult.download')}
                 Icon={<CheckCircleIcon className={classes.checkCircleIcon} />}
                 onClick={download}
-                subtitle={t('computationResult.downloadText')}
-                title={t('computationResult.complete')}
+                subtitle={t('computationResult.subtitle')}
+                title={t('computationResult.title')}
+            />
+        ),
+        Failed: (
+            <Card
+                Icon={<FailedIcon className={classes.failedIcon} />}
+                subtitle={t('computationFailed.subtitle')}
+                title={t('computationFailed.title')}
+            />
+        ),
+        Revoked: (
+            <Card
+                Icon={<FailedIcon className={classes.failedIcon} />}
+                subtitle={t('computationFailed.subtitle')}
+                title={t('computationFailed.title')}
+            />
+        ),
+        Retry: (
+            <Card
+                Icon={<RetryIcon className={classes.retryIcon} />}
+                subtitle={t('computationRetry.subtitle')}
+                title={t('computationRetry.title')}
             />
         ),
     }[status]);
 
     const viewToRender = getView(computation.status) || <NotFound />;
 
-    return (
-        <Layout>
-            <Paper className={classes.root}>
-                {viewToRender}
-            </Paper>
-        </Layout>
-    );
+    return <Layout><Paper className={classes.root}>{viewToRender}</Paper></Layout>;
 }
 
 ComputationResult.propTypes = { match: PropTypes.object.isRequired };

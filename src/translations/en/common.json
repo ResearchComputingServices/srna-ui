@@ -50,9 +50,17 @@
         "refresh": "Check if it has started"
     },
     "computationResult": {
-        "complete": "Computation complete!",
-        "downloadText": "The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.",
+        "title": "Computation complete!",
+        "subtitle": "The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.",
         "download": "Download Result"
+    },
+    "computationFailed": {
+        "title": "Computation Failed",
+        "subtitle": "Please try again the computation and contact us if the problem persists."
+    },
+    "computationRetry": {
+        "title": "Pending Computation",
+        "subtitle": "Computation will be retried. Please check later for the results."
     },
     "fileUploader": {
         "chooseFile": "Choose File",
