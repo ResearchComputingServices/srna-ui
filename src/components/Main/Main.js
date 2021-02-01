@@ -76,8 +76,8 @@ function Main() {
     const clearSession = () => {
         storage.get().removeItem('sessionId');
         userSessionActions.clearSession();
-        if (historyService.getUrl() !== '/') {
-            historyService.go('/');
+        if (historyService.getUrl() !== '/history') {
+            historyService.go('/history');
         } else {
             historyService.reload();
         }

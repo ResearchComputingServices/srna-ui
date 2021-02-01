@@ -5,11 +5,11 @@ import Computations from '../components/Computations';
 
 export default [
     {
-        path: '/',
+        path: '/history',
         component: Computations,
     },
     {
-        path: '/create',
+        path: '/',
         component: ComputationForm,
     },
     {

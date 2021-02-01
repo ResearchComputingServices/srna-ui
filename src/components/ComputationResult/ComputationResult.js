@@ -52,6 +52,61 @@ const useStyles = makeStyles(theme => ({
     buttonIcon: { fill: theme.palette.primary.main },
 }));
 
+function Card({
+    title,
+    subtitle,
+    buttonTitle,
+    Icon,
+    ButtonIcon,
+    onClick,
+}) {
+    const classes = useStyles();
+    return (
+        <>
+            {Icon}
+            <Box
+                alignItems='center'
+                display='flex'
+                flexDirection='row'
+            >
+                <Typography variant='h6'>
+                    {title}
+                </Typography>
+            </Box>
+            <Typography
+                className={classes.subtitle}
+                variant='subtitle2'
+            >
+                {subtitle}
+            </Typography>
+            {ButtonIcon && buttonTitle && (
+                <Button
+                    className={classes.button}
+                    onClick={onClick}
+                    startIcon={ButtonIcon}
+                    variant='outlined'
+                >
+                    {buttonTitle}
+                </Button>
+            )}
+        </>
+    );
+}
+
+Card.propTypes = {
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    Icon: PropTypes.node.isRequired,
+    buttonTitle: PropTypes.string,
+    ButtonIcon: PropTypes.node,
+};
+
+Card.defaultProps = {
+    ButtonIcon: undefined,
+    buttonTitle: undefined,
+};
+
 function ComputationResult({ match }) {
     const taskId = match.params.id;
     const computationService = useService('computation');
@@ -108,99 +163,48 @@ function ComputationResult({ match }) {
 
     const getView = status => ({
         Pending: (
-            <>
-                <PendingIcon className={classes.pendingIcon} />
-                <Box
-                    alignItems='center'
-                    display='flex'
-                    flexDirection='row'
-                >
-                    <Typography variant='h6'>
-                        {!computation.refreshForResultsCounter
-                            ? t('computationPending.title1')
-                            : t('computationPending.title2')}
-
-                    </Typography>
-                </Box>
-                <Typography
-                    className={classes.subtitle}
-                    variant='subtitle2'
-                >
-                    {t('computationPending.subtitle')}
-                </Typography>
-                <Button
-                    className={classes.button}
-                    onClick={refresh}
-                    startIcon={(<RefreshIcon className={classes.buttonIcon} />)}
-                    variant='outlined'
-                >
-                    {t('computationPending.refresh')}
-                </Button>
-            </>
+            <Card
+                ButtonIcon={<RefreshIcon className={classes.buttonIcon} />}
+                buttonTitle={t('computationPending.refresh')}
+                Icon={<PendingIcon className={classes.pendingIcon} />}
+                onClick={refresh}
+                subtitle={t('computationPending.subtitle')}
+                title={
+                    !computation.refreshForResultsCounter
+                        ? t('computationPending.title1')
+                        : t('computationPending.title2')
+                }
+            />
         ),
         Started: (
-            <>
-                <Ripple
-                    color='warning'
-                    height={45}
-                    width={45}
-                />
-                <Box
-                    alignItems='center'
-                    display='flex'
-                    flexDirection='row'
-                >
-                    <Typography variant='h6'>
-                        {!computation.refreshForResultsCounter
-                            ? t('computationStarted.title1')
-                            : t('computationStarted.title2')}
-
-                    </Typography>
-                </Box>
-                <Typography
-                    className={classes.subtitle}
-                    variant='subtitle2'
-                >
-                    {t('computationStarted.subtitle')}
-                </Typography>
-
-                <Button
-                    className={classes.button}
-                    onClick={refresh}
-                    startIcon={(<RefreshIcon className={classes.buttonIcon} />)}
-                    variant='outlined'
-                >
-                    {t('computationStarted.refresh')}
-                </Button>
-            </>
+            <Card
+                ButtonIcon={<RefreshIcon className={classes.buttonIcon} />}
+                buttonTitle={t('computationStarted.refresh')}
+                Icon={(
+                    <Ripple
+                        color='warning'
+                        height={45}
+                        width={45}
+                    />
+                )}
+                onClick={refresh}
+                subtitle={t('computationStarted.subtitle')}
+                title={
+                    !computation.refreshForResultsCounter
+                        ? t('computationStarted.title1')
+                        : t('computationStarted.title2')
+                }
+            />
         ),
         Success: (
-            <>
-                <CheckCircleIcon className={classes.checkCircleIcon} />
-                <Box
-                    alignItems='center'
-                    display='flex'
-                    flexDirection='row'
-                >
-                    <Typography variant='h6'>
-                        {t('computationResult.complete')}
-                    </Typography>
-                </Box>
-                <Typography
-                    className={classes.subtitle}
-                    variant='subtitle2'
-                >
-                    {t('computationResult.downloadText')}
-                </Typography>
-                <Button
-                    className={classes.button}
-                    onClick={download}
-                    startIcon={<DownloadIcon className={classes.buttonIcon} />}
-                    variant='outlined'
-                >
-                    {t('computationResult.download')}
-                </Button>
-            </>
+            <Card
+                ButtonIcon={<DownloadIcon className={classes.buttonIcon} />}
+                buttonTitle={t('computationResult.download')}
+                Icon={<CheckCircleIcon className={classes.checkCircleIcon} />}
+                onClick={download}
+                subtitle={t('computationResult.downloadText')}
+                title={t('computationResult.complete')}
+            />
         ),
     }[status]);
 

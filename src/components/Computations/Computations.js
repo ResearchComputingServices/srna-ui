@@ -17,6 +17,9 @@ import Ripple from '../Ripple';
 import { useActions, useService, useStore } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
+    createButton: {
+        textTransform: 'none'
+    },
     refreshIcon: {
         height: 35,
         width: 35,
@@ -123,7 +126,7 @@ function Computations() {
         },
     ];
 
-    const onCreate = () => historyService.go('/create');
+    const onCreate = () => historyService.go('/');
 
     const onRowClick = (_, data) => historyService.go(`computation/${data.taskId}`);
 
@@ -156,12 +159,13 @@ function Computations() {
                 mb={1}
             >
                 <Button
+                    className={classes.createButton}
                     color='primary'
                     onClick={onCreate}
                     startIcon={<CreateIcon />}
                     variant='contained'
                 >
-                    Create
+                    {t('computations.create')}
                 </Button>
                 <Tooltip title={t('computations.refreshComputations')}>
                     <IconButton

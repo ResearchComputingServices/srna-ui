@@ -1,20 +1,22 @@
-import React from 'react';
-import {
+import React from 'react'; import {
     Box,
     Typography,
     TextField,
     Checkbox,
     FormControlLabel,
+    IconButton,
+    Paper,
+    Tooltip,
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import HistoryIcon from '@material-ui/icons/History';
 import FileUploader from '../FileUploader';
 import Layout from '../Layout';
 import Button from '../Button';
-import FormContainer from '../FormContainer';
 import useSchema from './useSchema';
 import { useActions, usePrevious, useService } from '../../hooks';
 import { useToast } from '../ToastContext';
@@ -24,12 +26,20 @@ import historyService from '../../services/HistoryService';
 export const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
+        flexDirection: 'column',
         width: 750,
+        marginTop: theme.spacing(2),
         paddingLeft: theme.spacing(3),
         '@media (max-width:780px)': { width: 650 },
         '@media (max-width:610px)': { width: 550 },
         '@media (max-width:554px)': { width: 500 },
         '@media (max-width:504px)': { width: 450 },
+    },
+    history: { marginRight: theme.spacing(2) },
+    historyIcon: {
+        height: 35,
+        width: 35,
+        fill: theme.palette.primary.main,
     },
     title: { paddingTop: theme.spacing(1) },
     field: { margin: theme.spacing(1.8) },
@@ -95,7 +105,7 @@ function ComputationForm() {
                 taskId,
                 filename: getValues('fileSequence').name,
             });
-            historyService.go('/');
+            historyService.go('/history');
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
@@ -128,15 +138,30 @@ function ComputationForm() {
 
     return (
         <Layout>
-            <FormContainer className={classes.root}>
+            <Paper className={classes.root}>
                 <Box>
-                    <Typography
-                        className={clsx(classes.title, classes.field)}
-                        variant='h5'
+                    <Box
+                        alignItems='center'
+                        display='flex'
+                        flex-direction='row'
+                        justifyContent='space-between'
                     >
-                        {t('computationForm.querySequence')}
-                        :
-                    </Typography>
+                        <Typography
+                            className={clsx(classes.title, classes.field)}
+                            variant='h5'
+                        >
+                            {t('computationForm.querySequence')}
+                            :
+                        </Typography>
+                        <Tooltip title={t('computationForm.history')}>
+                            <IconButton
+                                className={classes.history}
+                                onClick={() => historyService.go('/history')}
+                            >
+                                <HistoryIcon className={classes.historyIcon}/>
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
                     <FileUploader
                         className={classes.field}
                         error={errors.fileSequence}
@@ -311,7 +336,7 @@ function ComputationForm() {
                         {t('computationForm.run')}
                     </Button>
                 </Box>
-            </FormContainer>
+            </Paper>
         </Layout>
     );
 }

@@ -14,9 +14,11 @@
         "createdDate": "Created Date",
         "status": "Status",
         "downloadResult": "Download Result",
-        "refreshComputations": "Refresh Computations"
+        "refreshComputations": "Refresh Computations",
+        "create": "Create Computation"
     },
     "computationForm": {
+        "history": "See previous computations",
         "querySequence": "Query Sequence",
         "generalSettings": "General Settings",
         "blastSettings": "Blast Settings",
