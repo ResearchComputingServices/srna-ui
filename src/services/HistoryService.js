@@ -23,12 +23,14 @@ class HistoryService {
 
     go = route => this.history.push(route);
 
+    replace = route => this.history.replace(route);
+
     goBack = () => {
         this.history.goBack();
         return this.routes.pop();
     }
 
-    reload = () => this.history.go(0)
+    reload = () => this.history.go(0);
 
     routesLength = () => this.routes.length;
 

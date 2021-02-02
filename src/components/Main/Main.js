@@ -77,26 +77,20 @@ function Main() {
 
     const clearSession = () => {
         userSessionActions.clearSession();
-        if (historyService.getUrl() !== '/') {
-            historyService.go('/');
-            historyService.reload();
-        } else {
-            historyService.reload();
-        }
+        historyService.replace('/');
     };
-
-    const createInterceptors = React.useCallback(() => {
-        interceptorService.registerDataTransformInterceptor();
-        interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
-        if (userSession.sessionId) {
-            interceptorService.registerRequestInterceptor(request => (request.headers.Authorization = `Bearer ${userSession.sessionId}`));
-        }
-    }, [interceptorService, userSession.sessionId]);
 
     useMount(() => {
         createSessionId();
-        createInterceptors();
+        interceptorService.registerDataTransformInterceptor();
+        interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
     });
+
+    React.useEffect(() => {
+        if (userSession.sessionId) {
+            interceptorService.registerRequestInterceptor(request => (request.headers.Authorization = `Bearer ${userSession.sessionId}`));
+        }
+    }, [interceptorService, userSession]);
 
     return (
         <>
