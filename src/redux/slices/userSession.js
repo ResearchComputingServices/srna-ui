@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { clearSession } from '../actions';
 
 const initialState = {
     sessionId: '',
@@ -19,6 +20,11 @@ const userSessionSlice = createSlice({
             state.createdDate = new Date().toISOString();
         },
         reset: state => {
+            Object.assign(state, initialState);
+        },
+    },
+    extraReducers: {
+        [clearSession]: state => {
             Object.assign(state, initialState);
         },
     },

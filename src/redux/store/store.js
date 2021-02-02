@@ -4,22 +4,34 @@ import {
     configureStore,
     getDefaultMiddleware,
 } from '@reduxjs/toolkit';
+import moment from 'moment';
 import { reducers } from '../slices';
-import userSession from '../slices/userSession';
 import { storage } from '../../services';
 
-function rehydrateStore() {
-    const $appData = JSON.parse(storage.get().getItem('$appData'));
-    if ($appData) {
-        _.set($appData, 'userSession', userSession.initialState);
-        return $appData;
+function pruneComputation($appData) {
+    const cutOff = 1;
+    if ($appData.computations) {
+        const prunedData = {};
+        _.each($appData.computations.data, (value, key) => {
+            const now = moment();
+            const createdDate = moment(value.createdDate);
+            const diff = now.diff(createdDate, 'days');
+            if (diff < cutOff) {
+                prunedData[key] = value;
+            }
+        });
+        $appData.computations.data = prunedData;
     }
-    return {};
+    return $appData;
+}
+
+function rehydrateStore() {
+    const $appData = storage.get();
+    return $appData ? pruneComputation($appData) : {};
 }
 
 function dehydrateStore(store) {
-    const $appData = store.getState();
-    storage.get().setItem('$appData', JSON.stringify($appData));
+    storage.set(store.getState());
 }
 
 const store = configureStore({

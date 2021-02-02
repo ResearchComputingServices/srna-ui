@@ -1,16 +1,17 @@
 import _ from 'lodash';
 
 class StorageService {
-    get = () => localStorage
-
-    getSessionId = () => {
-        const { $appData } = this.get();
+    get = () => {
+        const $appData = localStorage.getItem('$appData');
         if (typeof $appData === 'string' && $appData) {
-            const parsedData = JSON.parse($appData);
-            return _.get(parsedData, 'userSession.sessionId', null);
+            return JSON.parse($appData);
         }
         return null;
     }
+
+    getItem = key => _.get(this.get(), key, null)
+
+    set = data => localStorage.setItem('$appData', JSON.stringify(data))
 }
 
 const storageService = new StorageService();

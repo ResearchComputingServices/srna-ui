@@ -9,7 +9,6 @@ class HistoryService {
     constructor() {
         this.history.listen(location => {
             this.routes.push(location);
-            localStorage.setItem('$lastVisitedRoute', location.pathname);
         });
     }
 

@@ -66,7 +66,7 @@ function Main() {
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     const createSessionId = React.useCallback(() => {
-        const sessionId = storage.getSessionId();
+        const sessionId = storage.getItem('userSession.sessionId');
         if (sessionId) {
             userSessionActions.login(sessionId);
         } else {
@@ -78,6 +78,7 @@ function Main() {
     const clearSession = () => {
         userSessionActions.clearSession();
         historyService.replace('/');
+        createSessionId();
     };
 
     useMount(() => {
