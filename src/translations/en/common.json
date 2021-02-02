@@ -54,8 +54,8 @@
         "subtitle": "The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.",
         "download": "Download Result"
     },
-    "computationFailed": {
-        "title": "Computation Failed",
+    "computationFailure": {
+        "title": "Computation Failure",
         "subtitle": "Please try again the computation and contact us if the problem persists."
     },
     "computationRetry": {

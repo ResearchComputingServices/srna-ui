@@ -7,7 +7,7 @@ import {
     CheckCircle as CheckCircleIcon,
     GetApp as DownloadIcon,
     PausePresentation as PendingIcon,
-    Cancel as FailedIcon,
+    Cancel as FailureIcon,
     HourglassEmpty as RetryIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -93,7 +93,7 @@ function Card({
             >
                 {subtitle}
             </Typography>
-            {ButtonIcon && buttonTitle && (
+            {ButtonIcon && onClick && buttonTitle && (
                 <Button
                     className={classes.button}
                     onClick={onClick}
@@ -110,13 +110,14 @@ function Card({
 Card.propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
     Icon: PropTypes.node.isRequired,
     buttonTitle: PropTypes.string,
     ButtonIcon: PropTypes.node,
+    onClick: PropTypes.func,
 };
 
 Card.defaultProps = {
+    onClick: undefined,
     ButtonIcon: undefined,
     buttonTitle: undefined,
 };
@@ -160,8 +161,6 @@ function ComputationResult({ match }) {
         try {
             const response = await computationService.outputFile(computation.taskId);
             saveFile(computation, response);
-            computationsActions.attemptComputationDownload(computation.taskId);
-            // Get the task object and increments it's download counter to indicate that results were downloaded once.
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
@@ -172,8 +171,6 @@ function ComputationResult({ match }) {
     };
 
     if (computation == null) return <NotFound />;
-
-    if (computation.status === 'Success' && computation.downloadResultsCounter === 0) download();
 
     const getView = status => ({
         Pending: (
@@ -220,18 +217,18 @@ function ComputationResult({ match }) {
                 title={t('computationResult.title')}
             />
         ),
-        Failed: (
+        Failure: (
             <Card
-                Icon={<FailedIcon className={classes.failedIcon} />}
-                subtitle={t('computationFailed.subtitle')}
-                title={t('computationFailed.title')}
+                Icon={<FailureIcon className={classes.failedIcon} />}
+                subtitle={t('computationFailure.subtitle')}
+                title={t('computationFailure.title')}
             />
         ),
         Revoked: (
             <Card
-                Icon={<FailedIcon className={classes.failedIcon} />}
-                subtitle={t('computationFailed.subtitle')}
-                title={t('computationFailed.title')}
+                Icon={<FailureIcon className={classes.failedIcon} />}
+                subtitle={t('computationFailure.subtitle')}
+                title={t('computationFailure.title')}
             />
         ),
         Retry: (

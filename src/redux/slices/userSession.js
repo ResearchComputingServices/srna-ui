@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { sessionId: '' };
+const initialState = {
+    sessionId: '',
+    createdDate: null,
+    lastLoginDate: null,
+};
 
 const userSessionSlice = createSlice({
     name: 'userSession',
@@ -8,6 +12,11 @@ const userSessionSlice = createSlice({
     reducers: {
         login: (state, action) => {
             state.sessionId = action.payload;
+            state.lastLoginDate = new Date().toISOString();
+        },
+        register: (state, action) => {
+            state.sessionId = action.payload;
+            state.createdDate = new Date().toISOString();
         },
         reset: state => {
             Object.assign(state, initialState);

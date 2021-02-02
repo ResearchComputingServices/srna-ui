@@ -15,7 +15,6 @@ export default createSlice({
                 filename: action.payload.filename,
                 createdDate: (new Date()).toISOString(),
                 refreshForResultsCounter: 0,
-                downloadResultsCounter: 0,
             };
         },
         startComputation: (state, action) => {
@@ -40,9 +39,6 @@ export default createSlice({
         },
         attemptComputationRefresh: (state, action) => {
             ++state.data[action.payload].refreshForResultsCounter;
-        },
-        attemptComputationDownload: (state, action) => {
-            ++state.data[action.payload].downloadResultsCounter;
         },
     },
     extraReducers: {

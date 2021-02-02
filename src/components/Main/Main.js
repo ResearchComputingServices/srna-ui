@@ -15,13 +15,14 @@ import {
     LockOpen as ClearSessionIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 import Logo from '../Logo';
 import {
     useWindowSize,
     useService,
     useActions,
     useStore,
+    useMount,
 } from '../../hooks';
 import { routes } from '../../config';
 import UserMenu from './UserMenu';
@@ -56,6 +57,7 @@ function Main() {
     const [historyService, interceptorService, routesAssemblerService] = useService('history', 'interceptor', 'routesAssembler');
     const userSessionActions = useActions('userSession');
     const theme = useStore('theme');
+    const userSession = useStore('userSession');
     const themeActions = useActions('theme');
     const isDark = theme.palette.type === 'dark';
     const [t] = useTranslation('common');
@@ -64,20 +66,20 @@ function Main() {
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     const createSessionId = React.useCallback(() => {
-        if (storage.get().sessionId) {
-            userSessionActions.login(storage.get().sessionId);
-        } else {
-            const sessionId = uuidv4();
+        const sessionId = storage.getSessionId();
+        if (sessionId) {
             userSessionActions.login(sessionId);
-            storage.get().sessionId = sessionId;
+        } else {
+            const sessionId = jwt.sign({ createdDate: new Date().toISOString() }, 'srna');
+            userSessionActions.register(sessionId);
         }
     }, [storage, userSessionActions]);
 
     const clearSession = () => {
-        storage.get().removeItem('sessionId');
         userSessionActions.clearSession();
-        if (historyService.getUrl() !== '/history') {
-            historyService.go('/history');
+        if (historyService.getUrl() !== '/') {
+            historyService.go('/');
+            historyService.reload();
         } else {
             historyService.reload();
         }
@@ -86,12 +88,15 @@ function Main() {
     const createInterceptors = React.useCallback(() => {
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
-    }, [interceptorService]);
+        if (userSession.sessionId) {
+            interceptorService.registerRequestInterceptor(request => (request.headers.Authorization = `Bearer ${userSession.sessionId}`));
+        }
+    }, [interceptorService, userSession.sessionId]);
 
-    React.useEffect(() => {
+    useMount(() => {
         createSessionId();
         createInterceptors();
-    }, [createSessionId, createInterceptors]);
+    });
 
     return (
         <>

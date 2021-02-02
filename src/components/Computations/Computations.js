@@ -6,7 +6,7 @@ import {
     GetApp as DownloadIcon,
     Add as CreateIcon,
     PausePresentation as PendingIcon,
-    Cancel as FailedIcon,
+    Cancel as FailureIcon,
     HourglassEmpty as RetryIcon,
 } from '@material-ui/icons';
 import MaterialTable from 'material-table';
@@ -65,7 +65,6 @@ function Computations() {
         try {
             const response = await computationService.outputFile(computation.taskId);
             saveFile(computation, response);
-            computationsActions.attemptComputationDownload(computation.taskId);
         } catch (err) {
             if (err && err.response && err.response.data && err.response.data.message) {
                 toastActions.error(err.response.data.message);
@@ -126,10 +125,10 @@ function Computations() {
                     );
                 }
 
-                if (rowData.status === 'Failed' || rowData.status === 'Revoked') {
+                if (rowData.status === 'Failure' || rowData.status === 'Revoked') {
                     return (
                         <Box ml={2.5}>
-                            <FailedIcon className={classes.failedIcon} />
+                            <FailureIcon className={classes.failedIcon} />
                         </Box>
                     );
                 }
