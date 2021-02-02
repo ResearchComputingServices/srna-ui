@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { reducers } from '../slices';
-import { storage } from '../../services';
+import { storage as storageService } from '../../services';
 
 function pruneComputation($appData) {
     const cutOff = 1;
@@ -26,12 +26,12 @@ function pruneComputation($appData) {
 }
 
 function rehydrateStore() {
-    const $appData = storage.get();
+    const $appData = storageService.get();
     return $appData ? pruneComputation($appData) : {};
 }
 
 function dehydrateStore(store) {
-    storage.set(store.getState());
+    storageService.set(store.getState());
 }
 
 const store = configureStore({

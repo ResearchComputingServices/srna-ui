@@ -61,24 +61,26 @@ function Main() {
     const themeActions = useActions('theme');
     const isDark = theme.palette.type === 'dark';
     const [t] = useTranslation('common');
-    const storage = useService('storage');
+    const storageService = useService('storage');
+    const sessionService = useService('session');
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     const createSessionId = React.useCallback(() => {
-        const sessionId = storage.getItem('userSession.sessionId');
+        const sessionId = storageService.getItem('userSession.sessionId');
         if (sessionId) {
             userSessionActions.login(sessionId);
         } else {
             const sessionId = jwt.sign({ createdDate: new Date().toISOString() }, 'srna');
             userSessionActions.register(sessionId);
         }
-    }, [storage, userSessionActions]);
+    }, [storageService, userSessionActions]);
 
-    const clearSession = () => {
+    const clearSession = async () => {
         userSessionActions.clearSession();
         historyService.replace('/');
         createSessionId();
+        try { await sessionService.clear(); } catch (err) {}
     };
 
     useMount(() => {
