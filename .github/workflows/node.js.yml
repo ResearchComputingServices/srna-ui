@@ -27,6 +27,12 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Create client_configurations.js
+      run: mv ../../src/client-configurations.js.dev ../../src/client-configurations.js
+
+    - name: Run lint
+      run: npm run lint
+
     - name: Run the tests and generate coverage report
       run: npm test -- --coverage
 
