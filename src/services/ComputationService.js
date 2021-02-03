@@ -20,6 +20,8 @@ class ComputationService {
         params: { task_id: taskId },
         responseType: 'blob',
     }).then(res => res.data);
+
+    sessionEpoch = () => axios.get(`${this.url}/session_epoch`).then(res => res.data);
 }
 
 const computationService = new ComputationService();

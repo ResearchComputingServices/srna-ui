@@ -56,9 +56,9 @@ function Computations() {
     const computationService = useService('computation');
 
     useMount(async () => {
+        let cutOff = 30;
         setLoading(true);
-        // TODO this needs to be retrieved from the server
-        const cutOff = 1;
+        try { cutOff = await computationService.sessionEpoch(); } catch (err) {} finally { setLoading(false); }
         const filteredData = {};
         Object.keys(computations.data)
             .forEach(key => {
@@ -71,7 +71,6 @@ function Computations() {
                 }
             });
         computationsActions.setData(filteredData);
-        setLoading(false);
     });
 
     const saveFile = (computation, response) => {
@@ -211,17 +210,29 @@ function Computations() {
                 >
                     {t('computations.create')}
                 </Button>
-                <Tooltip title={t('computations.refreshComputations')}>
-                    <IconButton
-                        color='primary'
-                        disabled={loading}
-                        onClick={refresh}
-                    >
-                        <RefreshIcon
-                            className={classes.refreshIcon}
-                        />
-                    </IconButton>
-                </Tooltip>
+                {loading
+                    ? (
+                        <IconButton
+                            color='primary'
+                            disabled={loading}
+                        >
+                            <RefreshIcon
+                                className={classes.refreshIcon}
+                            />
+                        </IconButton>
+                    )
+                    : (
+                        <Tooltip title={t('computations.refreshComputations')}>
+                            <IconButton
+                                color='primary'
+                                onClick={refresh}
+                            >
+                                <RefreshIcon
+                                    className={classes.refreshIcon}
+                                />
+                            </IconButton>
+                        </Tooltip>
+                    )}
             </Box>
             <MaterialTable
                 columns={columns}

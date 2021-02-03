@@ -34,7 +34,7 @@ Logo.propTypes = {
 
 Logo.defaultProps = {
     height: 64,
-    width: undefined,
+    width: 250,
     className: '',
     style: undefined,
 };
