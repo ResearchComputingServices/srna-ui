@@ -58,7 +58,10 @@ function Computations() {
     useMount(async () => {
         let cutOff = 30;
         setLoading(true);
-        try { cutOff = await computationService.sessionEpoch(); } catch (err) {} finally { setLoading(false); }
+        try {
+            const serverCutOff = await computationService.sessionEpoch();
+            cutOff = serverCutOff;
+        } catch (err) {} finally { setLoading(false); }
         const filteredData = {};
         Object.keys(computations.data)
             .forEach(key => {
