@@ -96,6 +96,6 @@ describe('Main', () => {
         const currentSessionId = store.getState().userSession.sessionId;
         await waitFor(() => fireEvent.click(clearSessionButton));
         const newSessionId = store.getState().userSession.sessionId;
-        expect(currentSessionId !== newSessionId).toBeFalsy();
+        expect(currentSessionId !== newSessionId).toBeTruthy();
     });
 });
