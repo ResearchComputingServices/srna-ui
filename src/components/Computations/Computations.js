@@ -16,7 +16,7 @@ import moment from 'moment';
 import { useToast } from '../ToastContext';
 import Button from '../Button';
 import Ripple from '../Ripple';
-import { useActions, useService, useStore } from '../../hooks';
+import { useMount, useActions, useService, useStore } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
     createButton: { textTransform: 'none' },
@@ -54,6 +54,25 @@ function Computations() {
     const computations = useStore('computations');
     const computationsActions = useActions('computations');
     const computationService = useService('computation');
+
+    useMount(async () => {
+        setLoading(true);
+        // TODO this needs to be retrieved from the server
+        const cutOff = 1;
+        const filteredData = {};
+        Object.keys(computations.data)
+            .forEach(key => {
+                const value = computations.data[key];
+                const now = moment();
+                const createdDate = moment(value.createdDate);
+                const diff = now.diff(createdDate, 'days');
+                if (diff < cutOff) {
+                    filteredData[key] = value;
+                }
+            });
+        computationsActions.setData(filteredData);
+        setLoading(false);
+    });
 
     const saveFile = (computation, response) => {
         const extension = 'xlsx';

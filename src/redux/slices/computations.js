@@ -8,6 +8,9 @@ export default createSlice({
     name: 'computations',
     initialState,
     reducers: {
+        setData: (state, action) => {
+            state.data = action.payload;
+        },
         createComputation: (state, action) => {
             state.data[action.payload.taskId] = {
                 taskId: action.payload.taskId,
