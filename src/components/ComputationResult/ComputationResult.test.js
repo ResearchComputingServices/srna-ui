@@ -81,6 +81,7 @@ describe('NotFound', () => {
         expect(screen.getByText('This will take a couple of minutes. Task will be started once other computations in the system are completed.')).toBeInTheDocument();
         expect(screen.getByText('Check if it has started')).toBeInTheDocument();
     });
+
     test('started', () => {
         render((
             <I18nextProvider i18n={i18next}>
@@ -93,6 +94,7 @@ describe('NotFound', () => {
         expect(screen.getByText('This usually takes a couple of minutes.')).toBeInTheDocument();
         expect(screen.getByText("Check if it's done")).toBeInTheDocument();
     });
+
     test('success', () => {
         render((
             <I18nextProvider i18n={i18next}>
@@ -105,6 +107,7 @@ describe('NotFound', () => {
         expect(screen.getByText("The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.")).toBeInTheDocument();
         expect(screen.getByText('Download Result')).toBeInTheDocument();
     });
+
     test('failure', () => {
         render((
             <I18nextProvider i18n={i18next}>
@@ -116,6 +119,7 @@ describe('NotFound', () => {
         expect(screen.getByText('Computation Failure')).toBeInTheDocument();
         expect(screen.getByText('Please try again the computation and contact us if the problem persists.')).toBeInTheDocument();
     });
+
     test('retry', () => {
         render((
             <I18nextProvider i18n={i18next}>
@@ -127,6 +131,7 @@ describe('NotFound', () => {
         expect(screen.getByText('Pending Computation')).toBeInTheDocument();
         expect(screen.getByText('Computation will be retried. Please check later for the results.')).toBeInTheDocument();
     });
+
     test('revoked', () => {
         render((
             <I18nextProvider i18n={i18next}>
@@ -138,6 +143,7 @@ describe('NotFound', () => {
         expect(screen.getByText('Computation Failure')).toBeInTheDocument();
         expect(screen.getByText('Please try again the computation and contact us if the problem persists.')).toBeInTheDocument();
     });
+
     test('if 404 page is rendered when id is not found in data', () => {
         render((
             <I18nextProvider i18n={i18next}>
