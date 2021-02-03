@@ -104,7 +104,7 @@ describe('NotFound', () => {
             </I18nextProvider>
         ));
         expect(screen.getByText('Computation complete!')).toBeInTheDocument();
-        expect(screen.getByText("The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.")).toBeInTheDocument();
+        expect(screen.getByText('You can start the download by clicking the button below.')).toBeInTheDocument();
         expect(screen.getByText('Download Result')).toBeInTheDocument();
     });
 

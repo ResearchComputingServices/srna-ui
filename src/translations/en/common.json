@@ -51,7 +51,7 @@
     },
     "computationResult": {
         "title": "Computation complete!",
-        "subtitle": "The results should start downloading automatically. If the download doesn't begin, you can start the download by clicking the button below.",
+        "subtitle": "You can start the download by clicking the button below.",
         "download": "Download Result"
     },
     "computationFailure": {
