@@ -15,7 +15,7 @@ i18next.init({
     resources: { en: { common: commonEn } },
 });
 
-describe('NotFound', () => {
+describe('ComputationResult', () => {
     let store = null;
 
     beforeAll(() => {

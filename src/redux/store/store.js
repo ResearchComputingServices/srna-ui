@@ -7,8 +7,7 @@ import { reducers } from '../slices';
 import { storage as storageService } from '../../services';
 
 function rehydrateStore() {
-    const $appData = storageService.get();
-    return $appData || {};
+    return storageService.get();
 }
 
 function dehydrateStore(store) {

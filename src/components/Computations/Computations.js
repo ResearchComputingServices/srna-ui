@@ -249,7 +249,7 @@ function Computations() {
                 onRowClick={onRowClick}
                 options={{
                     filtering: true,
-                    pageSize: 5,
+                    pageSize: 10,
                 }}
                 style={{
                     padding: 10,
