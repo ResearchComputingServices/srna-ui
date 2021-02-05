@@ -5,7 +5,8 @@
         "light": "Light",
         "theme": "Theme",
         "settings": "Settings",
-        "clearSession": "Clear Session"
+        "clearSession": "Clear Session",
+        "searchInEntrez": "Search in Entrez"
     },
     "computations": {
         "title": "Computations",

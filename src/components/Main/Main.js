@@ -13,6 +13,7 @@ import {
     Brightness2 as LightModeIcon,
     Flare as DarkModeIcon,
     LockOpen as ClearSessionIcon,
+    Search as SearchIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import jwt from 'jsonwebtoken';
@@ -65,6 +66,8 @@ function Main() {
     const sessionService = useService('session');
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
+
+    const searchInEntrez = () => window.open('https://www.ncbi.nlm.nih.gov/sites/batchentrez', '_blank');
 
     const createSessionId = React.useCallback(() => {
         const sessionId = storageService.getItem('userSession.sessionId');
@@ -121,14 +124,19 @@ function Main() {
                             displayName={t('appBar.settings')}
                             dropdowns={[
                                 {
-                                    title: t('appBar.clearSession'),
-                                    Icon: <ClearSessionIcon />,
-                                    handler: clearSession,
+                                    title: t('appBar.searchInEntrez'),
+                                    Icon: <SearchIcon />,
+                                    handler: searchInEntrez,
                                 },
                                 {
                                     title: `${!isDark ? t('appBar.dark') : t('appBar.light')} ${t('appBar.theme')}`,
                                     Icon: !isDark ? <LightModeIcon /> : <DarkModeIcon />,
                                     handler: switchThemeMode,
+                                },
+                                {
+                                    title: t('appBar.clearSession'),
+                                    Icon: <ClearSessionIcon />,
+                                    handler: clearSession,
                                 },
                             ]}
                         />
