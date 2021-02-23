@@ -5,7 +5,7 @@ import ClientConfig from '../client-configurations';
 class ComputationService {
     url = (new ClientConfig()).getApi();
 
-    compute = data => {
+    compute = async data => {
         const formData = new FormData();
         Object.keys(data).forEach(key => formData.append(snakeCase(key), data[key]));
         const config = { headers: { 'content-type': 'multipart/form-data' } };
@@ -22,6 +22,8 @@ class ComputationService {
     }).then(res => res.data);
 
     sessionEpoch = () => axios.get(`${this.url}/session_epoch`).then(res => res.data);
+
+    queueLoad = () => axios.get(`${this.url}/queue_load`);
 }
 
 const computationService = new ComputationService();

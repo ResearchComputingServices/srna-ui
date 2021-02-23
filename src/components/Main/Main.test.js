@@ -95,6 +95,11 @@ describe('Main', () => {
         const clearSessionButton = screen.getByText('Clear Session');
         const currentSessionId = store.getState().userSession.sessionId;
         await waitFor(() => fireEvent.click(clearSessionButton));
+        const confirmButton = screen.getByText('Ok');
+        expect(confirmButton).toBeInTheDocument();
+        expect(screen.getByText('Cancel')).toBeInTheDocument();
+        expect(screen.getByText('Clearing the browser\'s history will delete the computation history permanently.')).toBeInTheDocument();
+        await waitFor(() => fireEvent.click(confirmButton));
         const newSessionId = store.getState().userSession.sessionId;
         expect(currentSessionId !== newSessionId).toBeTruthy();
     });

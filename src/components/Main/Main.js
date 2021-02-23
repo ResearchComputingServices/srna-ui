@@ -18,6 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import jwt from 'jsonwebtoken';
 import Logo from '../Logo';
+import Confirmation from '../Confirmation';
 import {
     useWindowSize,
     useService,
@@ -64,6 +65,7 @@ function Main() {
     const [t] = useTranslation('common');
     const storageService = useService('storage');
     const sessionService = useService('session');
+    const [openConfirmation, setOpenConfirmation] = React.useState(false);
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
@@ -136,7 +138,7 @@ function Main() {
                                 {
                                     title: t('appBar.clearSession'),
                                     Icon: <ClearSessionIcon />,
-                                    handler: clearSession,
+                                    handler: () => setOpenConfirmation(true),
                                 },
                             ]}
                         />
@@ -146,6 +148,15 @@ function Main() {
             <main className={classes.content}>
                 <Switch>{routesAssemblerService.assemble(routes)}</Switch>
             </main>
+            <Confirmation
+                content={t('appBar.sessionClearWarning')}
+                onClose={() => setOpenConfirmation(false)}
+                onConfirm={() => {
+                    clearSession();
+                    setOpenConfirmation(false);
+                }}
+                open={openConfirmation}
+            />
         </>
     );
 }

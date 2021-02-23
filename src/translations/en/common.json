@@ -6,7 +6,13 @@
         "theme": "Theme",
         "settings": "Settings",
         "clearSession": "Clear Session",
-        "searchInEntrez": "Search in Entrez"
+        "searchInEntrez": "Search in Entrez",
+        "sessionClearWarning": "Clearing the browser's history will delete the computation history permanently."
+    },
+    "confirmation": {
+        "title": "Are you sure?",
+        "ok": "Ok",
+        "cancel": "Cancel"
     },
     "computations": {
         "title": "Computations",
