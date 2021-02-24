@@ -1,6 +1,6 @@
 import React from 'react';
 import FileSaver from 'file-saver';
-import { Tooltip, Box, IconButton } from '@material-ui/core';
+import { Tooltip, Box, IconButton, Typography } from '@material-ui/core';
 import {
     Refresh as RefreshIcon,
     GetApp as DownloadIcon,
@@ -209,6 +209,7 @@ function Computations() {
             mr={3}
             mt={3}
         >
+            <Typography>{t('computations.cacheClearWarning')}</Typography>
             <Box
                 alignItems='center'
                 display='flex'

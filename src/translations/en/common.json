@@ -7,7 +7,8 @@
         "settings": "Settings",
         "clearSession": "Clear Session",
         "searchInEntrez": "Search in Entrez",
-        "sessionClearWarning": "Clearing the browser's history will delete the computation history permanently."
+        "sessionClearWarning": "Clearing the session will delete the computation history permanently.",
+        "desktopVersion": "Desktop Version"
     },
     "confirmation": {
         "title": "Are you sure?",
@@ -22,7 +23,8 @@
         "status": "Status",
         "downloadResult": "Download Result",
         "refreshComputations": "Refresh Computations",
-        "create": "Create Computation"
+        "create": "Create Computation",
+        "cacheClearWarning": "Warning: Clearing the browser's cache will delete the computation history permanently."
     },
     "computationForm": {
         "history": "See previous computations",
