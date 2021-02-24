@@ -60,6 +60,8 @@ describe('Main', () => {
         await waitFor(() => fireEvent.click(settingsButton));
         expect(screen.getByText('Dark Theme')).toBeInTheDocument();
         expect(screen.getByText('Clear Session')).toBeInTheDocument();
+        expect(screen.getByText('Desktop Version')).toBeInTheDocument();
+        expect(screen.getByText('Search in Entrez')).toBeInTheDocument();
     });
 
     test('change theme', async () => {
@@ -98,7 +100,7 @@ describe('Main', () => {
         const confirmButton = screen.getByText('Ok');
         expect(confirmButton).toBeInTheDocument();
         expect(screen.getByText('Cancel')).toBeInTheDocument();
-        expect(screen.getByText('Clearing the browser\'s history will delete the computation history permanently.')).toBeInTheDocument();
+        expect(screen.getByText('Clearing the session will delete the computation history permanently.')).toBeInTheDocument();
         await waitFor(() => fireEvent.click(confirmButton));
         const newSessionId = store.getState().userSession.sessionId;
         expect(currentSessionId !== newSessionId).toBeTruthy();
