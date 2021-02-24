@@ -172,7 +172,18 @@ function Computations() {
         },
     ];
 
-    const onCreate = () => historyService.go('/');
+    const onCreate = async () => {
+        try {
+            await computationService.queueLoad();
+            historyService.go('/');
+        } catch (err) {
+            if (err && err.response && err.response.data && err.response.data.message) {
+                toastActions.error(err.response.data.message);
+            } else {
+                toastActions.error(t('error.unexpected'));
+            }
+        }
+    };
 
     const onRowClick = (_, data) => historyService.go(`computation/${data.taskId}`);
 

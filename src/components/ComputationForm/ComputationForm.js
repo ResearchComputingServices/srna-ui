@@ -99,6 +99,7 @@ function ComputationForm() {
 
     const onSubmit = async computation => {
         try {
+            await computationService.queueLoad();
             const response = await computationService.compute(computation);
             const { taskId } = response;
             computationsActions.createComputation({

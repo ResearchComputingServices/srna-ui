@@ -35,6 +35,7 @@ describe('Confirmation', () => {
         expect(onConfirm.mock.calls.length).toEqual(1);
         expect(onClose.mock.calls.length).toEqual(1);
     });
+
     test('If open is set as false Confirmation component should not show up', async () => {
         const onConfirm = jest.fn();
         const onClose = jest.fn();
