@@ -7,8 +7,8 @@
         "settings": "Settings",
         "clearSession": "Clear Session",
         "searchInEntrez": "Search in Entrez",
-        "sessionClearWarning": "Clearing the session will delete the computation history permanently.",
-        "desktopVersion": "Desktop Version"
+        "sessionClearWarning": "Clearing this session will delete your computation history permanently.",
+        "moreInformation": "More Information"
     },
     "confirmation": {
         "title": "Are you sure?",
@@ -24,7 +24,7 @@
         "downloadResult": "Download Result",
         "refreshComputations": "Refresh Computations",
         "create": "Create Computation",
-        "cacheClearWarning": "Warning: Clearing the browser's cache will delete the computation history permanently."
+        "cacheClearWarning": "Warning: Clearing the browser's cache will delete your computation history permanently"
     },
     "computationForm": {
         "history": "See previous computations",
@@ -74,6 +74,11 @@
     "fileUploader": {
         "chooseFile": "Choose File",
         "changeFile": "Change File"
+    },
+    "moreInformation": {
+        "desktopVersionToComputeSrnas": "Desktop version to compute srnas",
+        "sourceCodeZip": "Source code (zip)",
+        "sourceCodeGzip": "Source code (gzip)"
     },
     "error": {
         "unexpected": "An unexpected error has occured."

@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LinearProgress, CircularProgress as Spinner, Box } from '@material-ui/core';
+import {
+    Typography,
+    LinearProgress,
+    CircularProgress as Spinner,
+    Box,
+} from '@material-ui/core';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(() => ({
@@ -16,6 +22,7 @@ export const useStyles = makeStyles(() => ({
         // TODO need to move this to theme
         marginTop: 64,
     },
+    error: { marginTop: 30 },
 }));
 
 function Layout({
@@ -28,6 +35,7 @@ function Layout({
     linearProgress,
     ...props
 }) {
+    const [t] = useTranslation('common');
     const classes = useStyles();
     return (
         <Box width='100%'>
@@ -54,7 +62,14 @@ function Layout({
                 style={style}
             >
                 {!error && (!unmountOnLoad ? children : !loading && children)}
-                {error && 'An Error has Occured'}
+                {error && (
+                    <Typography
+                        className={classes.error}
+                        variant='subtitle1'
+                    >
+                        {t('error.unexpected')}
+                    </Typography>
+                )}
             </Box>
         </Box>
     );

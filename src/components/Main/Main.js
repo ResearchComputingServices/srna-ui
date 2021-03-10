@@ -14,7 +14,7 @@ import {
     Flare as DarkModeIcon,
     LockOpen as ClearSessionIcon,
     Search as SearchIcon,
-    DesktopMac as DesktopIcon,
+    MenuBook as MoreInformationIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import jwt from 'jsonwebtoken';
@@ -72,7 +72,7 @@ function Main() {
 
     const searchInEntrez = () => window.open('https://www.ncbi.nlm.nih.gov/sites/batchentrez', '_blank');
 
-    const gotoDesktopVersion = () => window.open('https://github.com/ResearchComputingServices/srna', '_blank');
+    const moreInformation = () => historyService.go('/more-information');
 
     const createSessionId = React.useCallback(() => {
         const sessionId = storageService.getItem('userSession.sessionId');
@@ -134,9 +134,9 @@ function Main() {
                                     handler: searchInEntrez,
                                 },
                                 {
-                                    title: t('appBar.desktopVersion'),
-                                    Icon: <DesktopIcon />,
-                                    handler: gotoDesktopVersion,
+                                    title: t('appBar.moreInformation'),
+                                    Icon: <MoreInformationIcon />,
+                                    handler: moreInformation,
                                 },
                                 {
                                     title: `${!isDark ? t('appBar.dark') : t('appBar.light')} ${t('appBar.theme')}`,
