@@ -68,7 +68,7 @@ const MoreInformation = () => {
                         <li>
                             <Link
                                 download
-                                href='https://github.com/ResearchComputingServices/srna/archive/v1.0.0.zip'
+                                href='https://github.com/ResearchComputingServices/srna/archive/v1.1.0.zip'
                             >
                                 <Typography>{t('moreInformation.sourceCodeZip')}</Typography>
                             </Link>
@@ -76,7 +76,7 @@ const MoreInformation = () => {
                         <li>
                             <Link
                                 download
-                                href='https://github.com/ResearchComputingServices/srna/archive/v1.0.0.tar.gz'
+                                href='https://github.com/ResearchComputingServices/srna/archive/v1.1.0.tar.gz'
                             >
                                 <Typography>{t('moreInformation.sourceCodeGzip')}</Typography>
                             </Link>

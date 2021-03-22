@@ -43,7 +43,7 @@ describe('Main', () => {
                 </ReduxProvider>
             </I18nextProvider>,
         );
-        expect(screen.getByText('sRNA Computation')).toBeInTheDocument();
+        expect(screen.getByText('CAREN')).toBeInTheDocument();
         expect(screen.getByText('Settings')).toBeInTheDocument();
     });
 
