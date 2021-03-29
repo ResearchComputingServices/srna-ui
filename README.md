@@ -1,4 +1,4 @@
-# <ins> CAREN - UI</ins>
+# <ins> CAREn - UI</ins>
 
 In bacteria, engineered short RNAs (sRNAs) are powerful tools for studying gene function. Using engineered sRNAs, researchers can tunably knock down the expression of a specific target gene, so as to determine the effects of that gene’s loss. This is particularly useful when studying genes that are essential for survival, which cannot be knocked out using traditional techniques. The purpose of this project, lead by Prof. Alex Wong from the Department of Biology, will be to create software to design sRNAs targeting user specified genes, using genome sequence information as input.
 

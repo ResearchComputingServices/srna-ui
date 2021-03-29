@@ -22,7 +22,7 @@ describe('Root', () => {
                 </ReduxProvider>
             </I18nextProvider>,
         );
-        expect(screen.getByText('CAREN: Computer-Automated sRNA Engineer')).toBeInTheDocument();
+        expect(screen.getByText('CAREn: Computer-Automated sRNA Engineer')).toBeInTheDocument();
         expect(screen.getByText('Settings')).toBeInTheDocument();
     });
 });
