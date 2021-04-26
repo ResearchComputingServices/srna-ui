@@ -164,6 +164,13 @@ function ComputationForm() {
                         </Tooltip>
                     </Box>
                     <FileUploader
+                        acceptedFiles={[
+                            '.gbff',
+                            '.gb',
+                            '.gbk',
+                            '.embl',
+                            'text/plain',
+                        ]}
                         className={classes.field}
                         error={errors.fileSequence}
                         onSave={files => {
