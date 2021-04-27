@@ -9,13 +9,13 @@ import {
     Link,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import NoteIcon from '@material-ui/icons/Note';
 import {
     Brightness2 as LightModeIcon,
     Flare as DarkModeIcon,
     LockOpen as ClearSessionIcon,
     Search as SearchIcon,
     MenuBook as MoreInformationIcon,
+    Note as TagsTemplateIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import jwt from 'jsonwebtoken';
@@ -163,7 +163,7 @@ function Main() {
                                 },
                                 {
                                     title: t('appBar.downloadTemplate'),
-                                    Icon: <NoteIcon />,
+                                    Icon: <TagsTemplateIcon />,
                                     handler: downloadTemplate,
                                 },
                                 {
