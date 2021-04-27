@@ -8,7 +8,8 @@
         "clearSession": "Clear Session",
         "searchInEntrez": "Search in Entrez",
         "sessionClearWarning": "Clearing this session will delete your computation history permanently.",
-        "moreInformation": "More Information"
+        "moreInformation": "More Information",
+        "downloadTemplate": "Tags Template"
     },
     "confirmation": {
         "title": "Are you sure?",

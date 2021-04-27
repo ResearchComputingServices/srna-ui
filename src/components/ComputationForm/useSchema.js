@@ -17,6 +17,10 @@ export default function useSchema() {
         return this.test('between-one', 'value must be between 0 and 1', value => value === undefined || (value >= 0 && value <= 1));
     });
 
+    yup.addMethod(yup.number, 'atLeast10', function() {
+        return this.test('at-least-ten', 'value must be at least 10', value => value === undefined || (value >= 10));
+    });
+
     const fileRequired = t('computationForm.fileRequired');
 
     return yup.object().shape({
@@ -46,7 +50,8 @@ export default function useSchema() {
             .integer()
             .formatEmptyNumber()
             .positive()
-            .required(),
+            .required()
+            .atLeast10(),
         fileTags: yup
             .mixed()
             .when('onlyTags', {

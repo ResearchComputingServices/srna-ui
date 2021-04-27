@@ -15,9 +15,11 @@ import {
     LockOpen as ClearSessionIcon,
     Search as SearchIcon,
     MenuBook as MoreInformationIcon,
+    Note as TagsTemplateIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import jwt from 'jsonwebtoken';
+import FileSaver from 'file-saver';
 import Logo from '../Logo';
 import Confirmation from '../Confirmation';
 import {
@@ -29,6 +31,7 @@ import {
 } from '../../hooks';
 import { routes } from '../../config';
 import UserMenu from './UserMenu';
+import { useToast } from '../ToastContext';
 
 export const useStyles = makeStyles(theme => ({
     toolbar: {
@@ -67,12 +70,33 @@ function Main() {
     const storageService = useService('storage');
     const sessionService = useService('session');
     const [openConfirmation, setOpenConfirmation] = React.useState(false);
+    const computationService = useService('computation');
+    const toastActions = useToast();
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
     const searchInEntrez = () => window.open('https://www.ncbi.nlm.nih.gov/sites/batchentrez', '_blank');
 
     const moreInformation = () => historyService.go('/more-information');
+
+    const saveFile = response => {
+        const extension = 'xlsx';
+        const filename = 'tagsTemplate';
+        FileSaver.saveAs(response, `${filename}.${extension}`);
+    };
+
+    const downloadTemplate = async () => {
+        try {
+            const response = await computationService.templateFile();
+            saveFile(response);
+        } catch (err) {
+            if (err && err.response && err.response.data && err.response.data.message) {
+                toastActions.error(err.response.data.message);
+            } else {
+                toastActions.error(t('error.unexpected'));
+            }
+        }
+    };
 
     const createSessionId = React.useCallback(() => {
         const sessionId = storageService.getItem('userSession.sessionId');
@@ -90,7 +114,6 @@ function Main() {
         createSessionId();
         try { await sessionService.clear(); } catch (err) {}
     };
-
     useMount(() => {
         createSessionId();
         interceptorService.registerDataTransformInterceptor();
@@ -137,6 +160,11 @@ function Main() {
                                     title: t('appBar.moreInformation'),
                                     Icon: <MoreInformationIcon />,
                                     handler: moreInformation,
+                                },
+                                {
+                                    title: t('appBar.downloadTemplate'),
+                                    Icon: <TagsTemplateIcon />,
+                                    handler: downloadTemplate,
                                 },
                                 {
                                     title: `${!isDark ? t('appBar.dark') : t('appBar.light')} ${t('appBar.theme')}`,

@@ -21,6 +21,8 @@ class ComputationService {
         responseType: 'blob',
     }).then(res => res.data);
 
+    templateFile = () => axios.get(`${this.url}/get_template_file`, { responseType: 'blob' }).then(res => res.data);
+
     sessionEpoch = () => axios.get(`${this.url}/session_epoch`).then(res => res.data);
 
     queueLoad = () => axios.get(`${this.url}/queue_load`);
