@@ -1,6 +1,6 @@
 {
     "appBar": {
-        "title": "CAREn: Computer-Automated sRNA Engineer",
+        "title": "CAREn: Computer-Automated asRNA Engineer",
         "dark": "Dark",
         "light": "Light",
         "theme": "Theme",
@@ -36,14 +36,14 @@
         "format": "Format",
         "chooseFile": "Choose File",
         "changeFile": "Change File",
-        "shift": "Shift Position",
-        "length": "sRNA Length",
-        "onlyTags": "Compute sRNAs only for these tags",
-        "blast": "Blast sRNAs against input genome",
+        "shift": "Offset Position",
+        "length": "asRNA Length",
+        "onlyTags": "Compute asRNAs only for these gene tags",
+        "blast": "Blast asRNAs against input genome",
         "eCutoff": "Expected cut off",
         "identityPerc": "Identity (%)",
-        "followHits": "Re-compute sRNAS with hits in the genome",
-        "shiftHits": "Shift Position (for recomputing)",
+        "followHits": "Re-compute asRNAs with off-target hits in the genome",
+        "shiftHits": "Offset Position (for recomputing)",
         "fileRequired": "File is required",
         "fieldRequired": "Field is required"
     },
@@ -77,7 +77,7 @@
         "changeFile": "Change File"
     },
     "moreInformation": {
-        "desktopVersionToComputeSrnas": "Desktop version to compute srnas",
+        "desktopVersionToComputeSrnas": "Desktop version to compute asRNAs",
         "sourceCodeZip": "Source code (zip)",
         "sourceCodeGzip": "Source code (gzip)"
     },

@@ -78,7 +78,7 @@ function Computations() {
 
     const saveFile = (computation, response) => {
         const extension = 'xlsx';
-        const filename = 'sRNAComputation';
+        const filename = 'asRNAComputation';
         FileSaver.saveAs(response, `${filename}-${computation.taskId}.${extension}`);
     };
 
