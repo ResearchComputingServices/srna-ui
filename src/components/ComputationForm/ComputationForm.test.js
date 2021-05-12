@@ -26,16 +26,16 @@ describe('ComputationForm', () => {
         expect(screen.getByText('Format')).toBeInTheDocument();
 
         expect(screen.getByText('General Settings:')).toBeInTheDocument();
-        expect(screen.getByText('Shift Position')).toBeInTheDocument();
-        expect(screen.getByText('sRNA Length')).toBeInTheDocument();
-        expect(screen.getByText('Compute sRNAs only for these tags')).toBeInTheDocument();
-        expect(screen.getByText('Blast sRNAs against input genome')).toBeInTheDocument();
+        expect(screen.getByText('Offset Position')).toBeInTheDocument();
+        expect(screen.getByText('asRNA Length')).toBeInTheDocument();
+        expect(screen.getByText('Compute asRNAs only for these gene tags')).toBeInTheDocument();
+        expect(screen.getByText('Blast asRNAs against input genome')).toBeInTheDocument();
 
         expect(screen.getByText('Blast Settings:')).toBeInTheDocument();
         expect(screen.getByText('Expected cut off')).toBeInTheDocument();
         expect(screen.getByText('Identity (%)')).toBeInTheDocument();
-        expect(screen.getByText('Re-compute sRNAS with hits in the genome')).toBeInTheDocument();
-        expect(screen.getByText('Shift Position (for recomputing)')).toBeInTheDocument();
+        expect(screen.getByText('Re-compute asRNAs with off-target hits in the genome')).toBeInTheDocument();
+        expect(screen.getByText('Offset Position (for recomputing)')).toBeInTheDocument();
 
         expect(screen.getAllByText('Choose File')).toHaveLength(2);
 
