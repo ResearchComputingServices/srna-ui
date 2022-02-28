@@ -13,7 +13,7 @@ format menu (Figure 1). At the time of writing, the link for the most
 recent version (NC_000913.3) is:
 https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3
 
-(../blob/master/public_html/img/tutorial1.png?raw=true)
+![This is a test](../blob/master/public_html/img/tutorial1.png?raw=true "This is a test")
 
 ## Example 1. Design of asRNAs for all coding sequences.
 
