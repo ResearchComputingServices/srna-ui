@@ -210,6 +210,7 @@ function Computations() {
             mt={3}
         >
             <Typography>{t('computations.cacheClearWarning')}</Typography>
+            <Typography>{t('computations.refreshWarning')}</Typography>
             <Box
                 alignItems='center'
                 display='flex'
@@ -231,6 +232,7 @@ function Computations() {
                             color='primary'
                             disabled={loading}
                         >
+                            {t('computations.refreshTitle')}
                             <RefreshIcon
                                 className={classes.refreshIcon}
                             />
@@ -242,6 +244,7 @@ function Computations() {
                                 color='primary'
                                 onClick={refresh}
                             >
+                                {t('computations.refreshTitle')}
                                 <RefreshIcon
                                     className={classes.refreshIcon}
                                 />

@@ -26,8 +26,10 @@
         "status": "Status",
         "downloadResult": "Download Result",
         "refreshComputations": "Refresh Computations",
+        "refreshTitle": "Refresh",
         "create": "Create Computation",
-        "cacheClearWarning": "Warning: Clearing the browser's cache will delete your computation history permanently"
+        "cacheClearWarning": "Warning: Clearing the browser's cache will delete your computation history permanently",
+        "refreshWarning": "Note: To refresh your job’s status, press the \"Refresh\" button below. Your browser's refresh button will not update the job status."
     },
     "computationForm": {
         "history": "See previous computations",
