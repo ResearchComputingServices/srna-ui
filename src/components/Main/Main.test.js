@@ -44,7 +44,7 @@ describe('Main', () => {
             </I18nextProvider>,
         );
         expect(screen.getByText('CAREn: Computer-Automated asRNA Engineer')).toBeInTheDocument();
-        expect(screen.getByText('Settings')).toBeInTheDocument();
+        expect(screen.getByText('More')).toBeInTheDocument();
     });
 
     test('settings menu', async () => {
