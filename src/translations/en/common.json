@@ -4,7 +4,7 @@
         "dark": "Dark",
         "light": "Light",
         "theme": "Theme",
-        "settings": "Settings",
+        "settings": "More",
         "clearSession": "Clear Session",
         "searchInEntrez": "Search in Entrez",
         "sessionClearWarning": "Clearing this session will delete your computation history permanently.",
