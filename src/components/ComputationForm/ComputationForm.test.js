@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import i18next from 'i18next';
 import { Provider as ReduxProvider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
@@ -18,7 +19,9 @@ describe('ComputationForm', () => {
         render((
             <I18nextProvider i18n={i18next}>
                 <ReduxProvider store={store} >
-                    <ComputationForm />
+                    <BrowserRouter>
+                        <ComputationForm />
+                    </BrowserRouter>
                 </ReduxProvider>
             </I18nextProvider>
         ));

@@ -55,7 +55,7 @@ describe('Main', () => {
                 </ReduxProvider>
             </I18nextProvider>,
         );
-        const settingsButton = screen.getByText('Settings');
+        const settingsButton = screen.getByText('More');
         expect(settingsButton).toBeInTheDocument();
         await waitFor(() => fireEvent.click(settingsButton));
         expect(screen.getByText('Dark Theme')).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe('Main', () => {
                 </ReduxProvider>
             </I18nextProvider>,
         );
-        const settingsButton = screen.getByText('Settings');
+        const settingsButton = screen.getByText('More');
         expect(settingsButton).toBeInTheDocument();
         await waitFor(() => fireEvent.click(settingsButton));
         const themeChangeButton = screen.getByText('Dark Theme');
@@ -91,7 +91,7 @@ describe('Main', () => {
                 </ReduxProvider>
             </I18nextProvider>,
         );
-        const settingsButton = screen.getByText('Settings');
+        const settingsButton = screen.getByText('More');
         expect(settingsButton).toBeInTheDocument();
         await waitFor(() => fireEvent.click(settingsButton));
         const clearSessionButton = screen.getByText('Clear Session');
