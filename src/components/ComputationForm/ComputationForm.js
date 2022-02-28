@@ -8,6 +8,7 @@ import React from 'react'; import {
     Paper,
     Tooltip,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { Autocomplete } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
@@ -141,6 +142,15 @@ function ComputationForm() {
         <Layout>
             <Paper className={classes.root}>
                 <Box>
+                    <Typography>
+                        Welcome to the CAREn webserver. CAREn designs
+                        antisense RNAs (asRNAs) for all coding
+                        sequences in a genome, or for a user specified
+                        subset of coding sequences. For a tutorial on
+                        how to use the webserver, click <Link to='/tutorial'>here</Link>.
+                        For instructions on installing and using CAREn
+                        locally, click <Link to='/more-information'>here</Link>.
+                    </Typography>
                     <Box
                         alignItems='center'
                         display='flex'
