@@ -147,9 +147,12 @@ function ComputationForm() {
                         antisense RNAs (asRNAs) for all coding
                         sequences in a genome, or for a user specified
                         subset of coding sequences. For a tutorial on
-                        how to use the webserver, click <Link to='/tutorial'>here</Link>.
-                        For instructions on installing and using CAREn
-                        locally, click <Link to='/more-information'>here</Link>.
+                        how to use the webserver, click&nbsp;
+                        <Link to='/tutorial'>here</Link>
+                        .  For instructions on installing and using
+                        CAREn locally, click&nbsp;
+                        <Link to='/more-information'>here</Link>
+                        .
                     </Typography>
                     <Box
                         alignItems='center'
