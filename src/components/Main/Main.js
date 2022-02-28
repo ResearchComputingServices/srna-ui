@@ -81,8 +81,8 @@ function Main() {
     let pageToggleTitle;
     let pageToggleHandler;
     let pageToggleIcon;
-    if (location.pathname == '/') {
-        pageToggleTitle = t('appBar.computationHistory')
+    if (location.pathname === '/') {
+        pageToggleTitle = t('appBar.computationHistory');
         pageToggleHandler = () => historyService.go('/history');
         pageToggleIcon = <HistoryIcon className={classes.historyIcon} />;
     } else {
@@ -90,7 +90,7 @@ function Main() {
         pageToggleHandler = () => historyService.go('/');
         pageToggleIcon = <HomeIcon />;
     }
-    
+
     const searchInEntrez = () => window.open('https://www.ncbi.nlm.nih.gov/sites/batchentrez', '_blank');
 
     const moreInformation = () => historyService.go('/more-information');
