@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Switch } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 import {
     AppBar,
     Toolbar,
@@ -16,6 +16,8 @@ import {
     Search as SearchIcon,
     MenuBook as MoreInformationIcon,
     Note as TagsTemplateIcon,
+    History as HistoryIcon,
+    Home as HomeIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import jwt from 'jsonwebtoken';
@@ -75,6 +77,20 @@ function Main() {
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
+    const location = useLocation();
+    let pageToggleTitle;
+    let pageToggleHandler;
+    let pageToggleIcon;
+    if (location.pathname == '/') {
+        pageToggleTitle = t('appBar.computationHistory')
+        pageToggleHandler = () => historyService.go('/history');
+        pageToggleIcon = <HistoryIcon className={classes.historyIcon} />;
+    } else {
+        pageToggleTitle = t('appBar.mainPage');
+        pageToggleHandler = () => historyService.go('/');
+        pageToggleIcon = <HomeIcon />;
+    }
+    
     const searchInEntrez = () => window.open('https://www.ncbi.nlm.nih.gov/sites/batchentrez', '_blank');
 
     const moreInformation = () => historyService.go('/more-information');
@@ -151,6 +167,11 @@ function Main() {
                         <UserMenu
                             displayName={t('appBar.settings')}
                             dropdowns={[
+                                {
+                                    title: pageToggleTitle,
+                                    Icon: pageToggleIcon,
+                                    handler: pageToggleHandler,
+                                },
                                 {
                                     title: t('appBar.searchInEntrez'),
                                     Icon: <SearchIcon />,
