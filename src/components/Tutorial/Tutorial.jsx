@@ -1,13 +1,9 @@
 import React from 'react';
 import {
-    Link,
-    Typography,
-    Paper,
-    Box,
+    Paper
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ReactMarkdown from 'react-markdown';
-import { useTranslation } from 'react-i18next';
 import Layout from '../Layout';
 import { useMount, useService } from '../../hooks';
 
@@ -27,7 +23,6 @@ export const useStyles = makeStyles(theme => ({
 }));
 
 const Tutorial = () => {
-    const [t] = useTranslation('common');
     const classes = useStyles();
     const tutorialService = useService('tutorial');
     const [state, setState] = React.useState({
