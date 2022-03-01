@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Switch, useLocation } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import {
     AppBar,
     Toolbar,
@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+    Help as TutorialIcon,
     Brightness2 as LightModeIcon,
     Flare as DarkModeIcon,
     LockOpen as ClearSessionIcon,
@@ -77,23 +78,15 @@ function Main() {
 
     const switchThemeMode = () => themeActions.setMode(!isDark ? 'dark' : 'light');
 
-    const location = useLocation();
-    let pageToggleTitle;
-    let pageToggleHandler;
-    let pageToggleIcon;
-    if (location.pathname === '/') {
-        pageToggleTitle = t('appBar.computationHistory');
-        pageToggleHandler = () => historyService.go('/history');
-        pageToggleIcon = <HistoryIcon className={classes.historyIcon} />;
-    } else {
-        pageToggleTitle = t('appBar.mainPage');
-        pageToggleHandler = () => historyService.go('/');
-        pageToggleIcon = <HomeIcon />;
-    }
+    const jobHistoryHandler = () => historyService.go('/history');
+
+    const mainPageHandler = () => historyService.go('/');
 
     const searchInEntrez = () => window.open('https://www.ncbi.nlm.nih.gov/sites/batchentrez', '_blank');
 
     const moreInformation = () => historyService.go('/more-information');
+
+    const tutorialHandler = () => historyService.go('/tutorial');
 
     const saveFile = response => {
         const extension = 'xlsx';
@@ -168,9 +161,19 @@ function Main() {
                             displayName={t('appBar.settings')}
                             dropdowns={[
                                 {
-                                    title: pageToggleTitle,
-                                    Icon: pageToggleIcon,
-                                    handler: pageToggleHandler,
+                                    title: t('appBar.mainPage'),
+                                    Icon: <HomeIcon />,
+                                    handler: mainPageHandler,
+                                },
+                                {
+                                    title: t('appBar.computationHistory'),
+                                    Icon: <HistoryIcon className={classes.historyIcon} />,
+                                    handler: jobHistoryHandler,
+                                },
+                                {
+                                    title: t('appBar.tutorial'),
+                                    Icon: <TutorialIcon />,
+                                    handler: tutorialHandler,
                                 },
                                 {
                                     title: t('appBar.searchInEntrez'),

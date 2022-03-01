@@ -7,6 +7,7 @@
         "settings": "More",
         "clearSession": "Clear Session",
         "searchInEntrez": "Search in Entrez",
+        "tutorial": "Tutorial",
         "computationHistory": "Job History",
         "mainPage": "Main Page",
         "sessionClearWarning": "Clearing this session will delete your computation history permanently.",
