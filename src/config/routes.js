@@ -3,6 +3,7 @@ import ComputationForm from '../components/ComputationForm';
 import ComputationResult from '../components/ComputationResult';
 import Computations from '../components/Computations';
 import MoreInformation from '../components/MoreInformation';
+import Tutorial from '../components/Tutorial';
 
 export default [
     {
@@ -20,6 +21,10 @@ export default [
     {
         path: '/more-information',
         component: MoreInformation,
+    },
+    {
+        path: '/tutorial',
+        component: Tutorial,
     },
     {
         path: '*',
