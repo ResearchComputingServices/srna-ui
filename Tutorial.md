@@ -8,7 +8,7 @@ antisense RNAs (asRNAs). We provide two examples:
 
 For both examples, we will use the Escherichia coli K-12 (MG1655)
 genome. To get started, download the GenBank formatted version of the
-genome from NCBI. Make sure to selected “GenBank (full)” under the
+genome from NCBI. Make sure to selecte “GenBank (full)” under the
 format menu (Figure 1). At the time of writing, the link for the most
 recent version (NC_000913.3) is:
 https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3
