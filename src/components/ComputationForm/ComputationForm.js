@@ -143,14 +143,14 @@ function ComputationForm() {
             <Paper className={classes.root}>
                 <Box>
                     <Typography>
-                        Welcome to the CAREn webserver. CAREn designs
+                        Welcome to the CAREng webserver. CAREng designs
                         antisense RNAs (asRNAs) for all coding
                         sequences in a genome, or for a user specified
                         subset of coding sequences. For a tutorial on
                         how to use the webserver, click&nbsp;
                         <Link to='/tutorial'>here</Link>
                         .  For instructions on installing and using
-                        CAREn locally, click&nbsp;
+                        CAREng locally, click&nbsp;
                         <Link to='/more-information'>here</Link>
                         .
                     </Typography>

@@ -43,7 +43,7 @@ describe('Main', () => {
                 </ReduxProvider>
             </I18nextProvider>,
         );
-        expect(screen.getByText('CAREn: Computer-Automated asRNA Engineer')).toBeInTheDocument();
+        expect(screen.getByText('CAREng: Computer-Automated asRNA Engineer')).toBeInTheDocument();
         expect(screen.getByText('More')).toBeInTheDocument();
     });
 

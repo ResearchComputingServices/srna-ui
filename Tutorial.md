@@ -1,6 +1,6 @@
-# CAREN - Tutorial
+# CAREng - Tutorial
 
-In this tutorial, we detail the use of the CAREN webserver to design
+In this tutorial, we detail the use of the CAREng webserver to design
 antisense RNAs (asRNAs). We provide two examples:
 
  1. The design of asRNAs for all coding sequences in a genome, and
@@ -19,7 +19,7 @@ https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3
 
 In this example, we will design asRNAs for all coding sequences in the E. coli K-12 (MG1655) genome. See above for instructions on how to download the GenBank formatted genome file.
 
- 1. Navigate your browser to the CAREN homepage: https://caren.carleton.ca
+ 1. Navigate your browser to the CAREng homepage: https://caren.carleton.ca
  1. Click “Choose File”, and upload the genome file.
  1. In the “Format” dropdown menu, select “genbank”.
  1. For this example, leave all settings at their defaults.
@@ -37,7 +37,7 @@ instructions on how to download the GenBank formatted genome file.
 
 You will need to prepare a file listing which coding sequences
 (“tags”) will be used. You can download a template file from the
-Settings menu on the CAREN homepage:
+Settings menu on the CAREng homepage:
 
 ![Figure 3.](https://raw.githubusercontent.com/researchcomputingservices/srna-ui/main/tutorial3.png)
 
@@ -50,7 +50,7 @@ gyrA, priA, and gyrB:
 Once you have obtained the source genome, and filled out the template,
 follow these steps:
 
- 1. Navigate your browser to the CAREN homepage: https://caren.carleton.ca 
+ 1. Navigate your browser to the CAREng homepage: https://caren.carleton.ca 
  1. Click “Choose File”, and upload the genome file.
  1. In the “Format” dropdown menu, select “genbank”.
  1. Click the check box “Compute asRNAs only for these gene tags”.
