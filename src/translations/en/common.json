@@ -34,7 +34,7 @@
     },
     "computationForm": {
         "history": "See previous computations",
-        "querySequence": "Query Sequence",
+        "querySequence": "Annotated Genome Sequence",
         "generalSettings": "General Settings",
         "blastSettings": "Blast Settings",
         "run": "Run",
